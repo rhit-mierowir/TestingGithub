@@ -18,7 +18,7 @@ jobs:
           First_Name: Mona
 
       - name: "This next step only knows Day and Greeting."
-        run: echo "I know $Greeting and the day of the week: $DAY_OF_WEEK."
+        run: echo "I know $Greeting and the day of the week is $DAY_OF_WEEK"
   test_job:
     runs-on: ubuntu-latest
     steps:
