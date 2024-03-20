@@ -8,7 +8,8 @@ This file includes examples of the following things:
 	4. Typing Lists and Tupples
 	5. Testing for Exceptions & Errors
 
-	TODO: Iterable, Pro
+	TODO: Iterable, Protocols, Dataclasses
+	TODO: Try out useing the interface idea that I thought of over break to test common interfaces for simple actions
 
 Other Notes:
 	For more information, see https://docs.python.org/3/library/typing.html
