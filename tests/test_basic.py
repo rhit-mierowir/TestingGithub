@@ -1,4 +1,5 @@
 from typing import Callable, Any, Iterator, Iterable, Generator, Protocol
+from dataclasses import dataclass, field
 import pytest
 """
 This file includes examples of the following things:
@@ -253,3 +254,38 @@ def test_useing_protocols()->None:
 	goodbook = Book("Good Book", "Dr. Good")
 	assert read_if_title_contains_word(badbook,"good") == 0
 	assert read_if_title_contains_word(goodbook, "good") == 1
+
+## 8. Data Classes
+# These classes are a concise way of creating classes that primarily hold data.
+# the = signs indicate default values, and assigns the same item to each created object.
+# If you want to create different items for each initialized item (assign different empty list to each), you need to create a factory to generate them.
+# More Info At: 
+# You might want to look into KW_ONLY if you want to have keyword only values: https://docs.python.org/3/library/dataclasses.html#dataclasses.KW_ONLY
+# Look into Post-init to have some values generated from others, not provided on initialization: https://docs.python.org/3/library/dataclasses.html#dataclasses.__post_init__
+	
+@dataclass
+class Report:
+	"""Class for storing information to identify a report."""
+	id: int
+	title: str
+	authors: list[str] = field(default_factory=list) #This data class queries this factory to get a new version of the item needed
+
+	def print_report_data(self)->str:
+		return f"Report ID: {self.id} TITLE: '{self.title}' AUTHORS: {self.authors}"
+	
+def test_Report()->None:
+	report1 = Report(0,"Report 1")
+	report2 = Report(1,"Report 2")
+	print(report1.print_report_data())
+	
+	report1.authors.append("R1A1")
+	report1.authors.append("R1A2")
+	report2.authors.append("R2A1")
+	report2.authors.append("R2A2")
+
+	assert report1.title == "Report 1"
+	assert report1.id == 0
+	assert "R1A1" in report1.authors
+	assert "R1A2" in report1.authors
+	assert "R2A1" not in report1.authors
+	assert "R2A2" not in report1.authors
