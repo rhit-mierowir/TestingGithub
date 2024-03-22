@@ -1,4 +1,4 @@
-from typing import Callable, Any, Iterable 
+from typing import Callable, Any, Iterator, Iterable, Generator, Protocol
 import pytest
 """
 This file includes examples of the following things:
@@ -7,9 +7,12 @@ This file includes examples of the following things:
 	3. Using Parameterize to test simple variations, adding comments to asserts
 	4. Typing Lists and Tupples
 	5. Testing for Exceptions & Errors
+	6. Typing Generators & Pytest Fixtures
+	7. Protocols
+	8. Dataclasses - TODO https://docs.python.org/3/library/dataclasses.html
 
-	TODO: Iterable, Protocols, Dataclasses
 	TODO: Try out useing the interface idea that I thought of over break to test common interfaces for simple actions
+	TODO: @overload (typing.overload) https://docs.python.org/3/library/typing.html#typing.overload
 
 Other Notes:
 	For more information, see https://docs.python.org/3/library/typing.html
@@ -123,6 +126,8 @@ def test_exceited_greeting(greeting:str, repeat_count:int, result:str)->None:
 #	tupple[int,...]		a tupple containing any number of elements, which all must be integers
 	
 def test_lists_and_tupples_work_as_expected():
+	# Note typing isn't checked at runtime, so no exception is raised for the "Bad Ones"
+
 	# Good
 	a: list[int] = [3,1,4,1,5,9,2,6]
 
@@ -149,3 +154,102 @@ def test_lists_and_tupples_work_as_expected():
 #	assert exec_info.type=ExactException
 #	assert "Error description" in exec_info.value
 # For more information: https://docs.pytest.org/en/latest/how-to/assert.html#assertions-about-expected-exceptions
+
+def test_asserting_errors_raised()-> None:
+	# Uncomment the following lines to 
+	#raise ValueError("Test that errors make tests fail.")
+	pass
+
+	# Show a simple use of this way to test for Exceptions
+	with pytest.raises(ArithmeticError):
+		raise FloatingPointError("This is a subclass of ArighmeticError.")
+
+
+	# A more complex example of catching Exceptions
+	with pytest.raises(ValueError) as excinfo: 				#Assert the contents of this raises an Exception that is ValueError or its subclass
+		raise ValueError("Verify this message")
+	
+	assert "Verify this message" in str(excinfo.value)		#Assert that the Exception's message contains the string.
+	assert excinfo.type is ValueError 						#Assert that the type is exactly ValueError, not a subclass
+
+## 6. Typing Generators & Pytest Fixtures
+# Generators return multiple values, for example providing the values in a list when queried. 
+# These intermediate values are produced with a yeild statement, which pauses the execution of this code which resumes when another value is requested.
+# After this, it can optionally also return a value using the standard return syntax.
+# There are ways to send information to it which I will not go in depth on.
+# For information on sending: https://stackoverflow.com/questions/19302530/what-is-the-purpose-of-the-send-function-on-python-generators
+#
+# There are two ways to type generators, the first is more thurough but usually superfluous:
+# Generator[YieldType, SendType, ReturnType]
+#
+# The second verson only communicates the yield type, but that is generally all you care about for most generators:
+# Iterator[YieldType]
+# Iterable[YieldType]
+#
+# One notable use of these are pytest Fixtures which provide startup code to generate some object for testing, yield it for use in tests, then 
+#	when the test finishes, it returns to the fixture which will close or remove what was generated to make sure you reach the deactivation logic.
+# This allows you to automatically generate useful objects for testing your code and reuse them in multiple tests.
+
+@pytest.fixture
+def example_fixture_generator() -> Iterator[Generator[int,None,str]]:
+	def generator_to_create()->Generator[int,None,str]:
+		for i in range(5):
+			yield i
+		return "done"
+	
+	yield generator_to_create
+
+	## add teardown code here (automatically run after test.)
+	# If this connected to database, this is where you close that connection
+
+#pass in a the results of a fixture by putting the fixture name as an argument, and the result of the yield statement is put there
+def test_example_fixture(example_fixture_generator:Generator[int,None,str])->None:
+
+	#save the generator
+	generator = example_fixture_generator()
+
+	assert next(generator) == 0
+	assert next(generator) == 1
+	assert next(generator) == 2
+	assert next(generator) == 3
+	assert next(generator) == 4
+
+	with pytest.raises(StopIteration) as execinfo:
+		next(generator)
+	assert str(execinfo.value) == "done"
+
+
+## 7. Protocols 
+# These are interfaces for structural typing. This is a type is fulfilled by anything that has the quantities specified in the protocol declaration.
+# This only clarify what the function needs to run properly, and should be as general as possible withoug being meaningless
+# This is useful because it allows you to generalize a function to only what is necessary for it to work, so it is easier to reuse and interpret.
+
+# Create the Protocol
+class Readable(Protocol):
+	title:str
+	author:str
+
+	def read()->None:
+		...
+
+# Create class that implements protocol
+class Book:
+	def __init__(self,title,author) -> None:
+		self.title = title
+		self.author = author
+	
+	def read(self)->None:
+		print(f"reading '{self.title}' by: {self.author}")
+
+# Function that references protocol
+def read_if_title_contains_word(text: Readable, word: str)->int:
+	if (word.lower() in text.title.lower()):
+		text.read()
+		return 1
+	return 0
+
+def test_useing_protocols()->None:
+	badbook = Book("Bad Book","Dr. Evil")
+	goodbook = Book("Good Book", "Dr. Good")
+	assert read_if_title_contains_word(badbook,"good") == 0
+	assert read_if_title_contains_word(goodbook, "good") == 1
