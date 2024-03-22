@@ -10,7 +10,7 @@ This file includes examples of the following things:
 	5. Testing for Exceptions & Errors
 	6. Typing Generators & Pytest Fixtures
 	7. Protocols
-	8. Dataclasses - TODO https://docs.python.org/3/library/dataclasses.html
+	8. Dataclasses
 
 	TODO: Try out useing the interface idea that I thought of over break to test common interfaces for simple actions
 	TODO: @overload (typing.overload) https://docs.python.org/3/library/typing.html#typing.overload
@@ -259,7 +259,7 @@ def test_useing_protocols()->None:
 # These classes are a concise way of creating classes that primarily hold data.
 # the = signs indicate default values, and assigns the same item to each created object.
 # If you want to create different items for each initialized item (assign different empty list to each), you need to create a factory to generate them.
-# More Info At: 
+# More Info At: https://docs.python.org/3/library/dataclasses.html
 # You might want to look into KW_ONLY if you want to have keyword only values: https://docs.python.org/3/library/dataclasses.html#dataclasses.KW_ONLY
 # Look into Post-init to have some values generated from others, not provided on initialization: https://docs.python.org/3/library/dataclasses.html#dataclasses.__post_init__
 	
