@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "Testing GitHub"
+version = "0.1.0"
+description = "A project to test using GitHub Actions and other python packages and for testing python coding practices."
+authors = ["rhit-mierowir <mierowir@rose-hulman.edu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+toml = "^0.10.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+Sphinx = "^7.2.6"
+sphinx-nefertiti = "^0.3.2"
+sphinx-book-theme = "^1.1.2"
+sphinx-wagtail-theme = "^6.3.0"
+pydata-sphinx-theme = "^0.15.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

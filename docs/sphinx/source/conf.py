@@ -6,10 +6,17 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Testing GitHub'
+import os, sys
+import toml
+
+py_project_toml = os.path.join(os.getcwd(),"../../../pyproject.toml")
+py_project_data = toml.load(py_project_toml)
+print(py_project_data)
+
+project = py_project_data["tool"]["poetry"]["name"]
 copyright = '2024, rhit-mierowir'
 author = 'rhit-mierowir'
-release = '0.1'
+release = py_project_data["tool"]["poetry"]["version"]
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -21,7 +28,6 @@ extensions = ['sphinx.ext.autodoc',
 templates_path = ['_templates']
 exclude_patterns = []
 
-import os, sys
 directory_of_source_code = os.path.join(os.getcwd(),"../../../")
 sys.path.append(directory_of_source_code)
 
