@@ -1,2 +1,31 @@
 __pycache__/
 */__pycache__/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Sphinx documentation
+# anything in a subfolder of the docs directory, but not in th sphinx subfolder, except in it's build directory
+docs/*/**
+!docs/sphinx/**
+docs/sphinx/build/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
