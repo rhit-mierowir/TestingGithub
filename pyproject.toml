@@ -30,7 +30,7 @@ classifiers = [ # See https://pypi.org/classifiers/
   "Environment :: Console",
   "Intended Audience :: Developers",
   "Intended Audience :: Education",
-  "Intended Audience :: End Users/Desktop"
+  "Intended Audience :: End Users/Desktop",
   "Intended Audience :: Science/Research",
   "Operating System :: POSIX :: Linux",
   "Programming Language :: C++",
