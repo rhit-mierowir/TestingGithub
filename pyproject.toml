@@ -1,13 +1,63 @@
+# Config File for Poetry:
+# More Info: https://python-poetry.org/docs/pyproject/
+
 [tool.poetry]
 name = "Testing GitHub"
 version = "0.1.0"
 description = "A project to test using GitHub Actions and other python packages and for testing python coding practices."
-authors = ["rhit-mierowir <mierowir@rose-hulman.edu>"]
+authors = [
+  "rhit-mierowir <mierowir@rose-hulman.edu>"
+  ]
+  
+#maintainers = [ # Should be distinct from list of authors Optional
+#  "Isaac Mierow <mierowir@rose-hulman.edu>"
+#  ]
+
+#What we want to include or exclude in the package
+#exclude = ["requirements.txt"]
+
+#Package information & websites
 readme = "README.md"
+lisence = "AGPL-1.0-or-later" # more lisences at https://spdx.org/licenses/
+homepage = "https://evolvablehardware.org/"
+repository = "https://github.com/rhit-mierowir/TestingGithub"
+documentation = "https://rhit-mierowir.github.io/TestingGithub/"
+keywords = ["Testing Github", "Esperimental"]
+classifiers = [ # See https://pypi.org/classifiers/
+  "Private :: Do Not Upload", # This makes pypy reject itr
+  # Note Python and Lisense requirement are filled in by python dependancy and lisence property
+  "Development Status :: 1 - Planning",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: End Users/Desktop"
+  "Intended Audience :: Science/Research",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: C++",
+  "Topic :: Documentation :: Sphinx",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Artificial Life",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Version Control :: Git",
+  "Topic :: System :: Hardware",
+  "Topic :: System :: Hardware :: Universal Serial Bus (USB)",
+  "Topic :: System :: Hardware :: Universal Serial Bus (USB) :: Miscellaneous"
+]
+
+#This is where we can put other URLs we want to link to
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/python-poetry/poetry/issues"
 
 [tool.poetry.dependencies]
 python = "^3.10"
 toml = "^0.10.2"
+
+# Here, the dependancies in the dev group won't be added unless we specify
+# poetry install --with dev
+[tool.poetry.group.dev]
+optional = true
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
