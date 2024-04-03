@@ -21,15 +21,17 @@ description = "A project to test using GitHub Actions and other python packages 
 authors = [
   "rhit-mierowir <mierowir@rose-hulman.edu>"
   ]
-  
+
 #maintainers = [ # Should be distinct from list of authors Optional
 #  "Isaac Mierow <mierowir@rose-hulman.edu>"
 #  ]
+
 
 #What we want to include or exclude in the package
 #exclude = ["requirements.txt"]
 
 #Package information & websites
+package-mode = false # Change to true when we want to publish
 readme = "README.md"
 license = "AGPL-1.0-or-later" # more licenses at https://spdx.org/licenses/
 homepage = "https://evolvablehardware.org/"
