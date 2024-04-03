@@ -2,7 +2,7 @@
 # More Info: https://python-poetry.org/docs/pyproject/
 
 [tool.poetry]
-name = "Testing GitHub"
+name = "TestingGitHub"
 version = "0.1.0"
 description = "A project to test using GitHub Actions and other python packages and for testing python coding practices."
 authors = [
