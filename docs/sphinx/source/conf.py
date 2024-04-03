@@ -11,11 +11,11 @@ import toml
 
 py_project_toml = os.path.join(os.getcwd(),"../../../pyproject.toml")
 py_project_data = toml.load(py_project_toml)
-print(py_project_data)
 
-project = py_project_data["tool"]["poetry"]["name"]
-copyright = '2024, rhit-mierowir'
-author = 'rhit-mierowir'
+#Load general data for website from pyproject.toml file
+project = py_project_data["config"]["sphinx"]["name"]
+copyright = py_project_data["config"]["sphinx"]["copyright_message"]
+author = py_project_data["config"]["sphinx"]["author"]
 release = py_project_data["tool"]["poetry"]["version"]
 
 # -- General configuration ---------------------------------------------------
@@ -35,11 +35,10 @@ sys.path.append(directory_of_source_code)
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 
-# Make Negertiti default for now.
-
+html_theme = py_project_data["config"]["sphinx"]["theme"]
 #html_theme = 'sphinx_book_theme'
 #html_theme = 'sphinx_wagtail_theme'
-html_theme = 'sphinx_nefertiti'
+#html_theme = 'sphinx_nefertiti'
 #html_theme = 'pydata_sphinx_theme'
 
 if (html_theme == 'sphinx_book_theme'):

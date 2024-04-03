@@ -1,6 +1,19 @@
+[config.sphinx] # Metadata displayed on Sphinx page (custom)
+name = "Testing Github"
+#version = uses version in tool.poetry
+copyright_message = '2024, rhit-mierowir'
+author = 'rhit-mierowir'
+
+theme = "sphinx_nefertiti"
+#OPTIONS:   'sphinx_book_theme'
+#           'sphinx_wagtail_theme'
+#           'sphinx_nefertiti'      <== Default/Suggested
+#           'pydata_sphinx_theme'
+
+
+
 # Config File for Poetry:
 # More Info: https://python-poetry.org/docs/pyproject/
-
 [tool.poetry]
 name = "TestingGitHub"
 version = "0.1.0"
@@ -61,6 +74,8 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
+
+# For Sphinx:
 Sphinx = "^7.2.6"
 sphinx-nefertiti = "^0.3.2"
 sphinx-book-theme = "^1.1.2"
