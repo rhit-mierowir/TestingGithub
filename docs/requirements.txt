@@ -3,11 +3,14 @@
 
 # This is a comment, to show how #-prefixed lines are ignored.
 # It is possible to specify requirements as plain names.
-pytest
-argparse
+#pytest
+#argparse
 
 # Sphinx Configs
-
+sphinx-book-theme
+sphinx-wagtail-theme
+sphinx-nefertiti
+pydata-sphinx-theme
 
 # The syntax supported here is the same as that of requirement specifiers.
 #docopt == 0.6.1
