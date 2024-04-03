@@ -72,7 +72,7 @@ toml = "^0.10.2"
 # Here, the dependancies in the dev group won't be added unless we specify
 # poetry install --with dev
 [tool.poetry.group.dev]
-optional = true
+optional = false
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
