@@ -68,10 +68,12 @@ classifiers = [ # See https://pypi.org/classifiers/
 [tool.poetry.dependencies]
 python = "^3.10"
 toml = "^0.10.2"
+serial = "^0.0.97"
 
+
+[tool.poetry.group.dev]
 # Here, the dependancies in the dev group won't be added unless we specify
 # poetry install --with dev
-[tool.poetry.group.dev]
 optional = false
 
 [tool.poetry.group.dev.dependencies]
