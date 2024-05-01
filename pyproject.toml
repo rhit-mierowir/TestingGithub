@@ -31,7 +31,8 @@ authors = [
 #exclude = ["requirements.txt"]
 
 #Package information & websites
-package-mode = false # Change to true when we want to publish
+package-mode = true 
+# Change to true when we want to publish
 readme = "README.md"
 license = "AGPL-1.0-or-later" # more licenses at https://spdx.org/licenses/
 homepage = "https://evolvablehardware.org/"

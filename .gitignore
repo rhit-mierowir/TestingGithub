@@ -15,6 +15,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# poetry distrobution information.
+dist/
+
 # Sphinx documentation
 # anything in a subfolder of the docs directory, but not in th sphinx subfolder, except in it's build directory
 docs/*/**
