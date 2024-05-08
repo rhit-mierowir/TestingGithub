@@ -26,7 +26,6 @@ authors = [
 #  "Isaac Mierow <mierowir@rose-hulman.edu>"
 #  ]
 
-
 #What we want to include or exclude in the package
 #exclude = ["requirements.txt"]
 
@@ -74,6 +73,17 @@ python = "^3.10"
 toml = "^0.10.2"
 serial = "^0.0.97"
 
+[tool.poetry.group.docs]
+# Here, the dependancies in the dev group won't be added unless we specify
+# poetry install --with dev
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^7.2.6"
+sphinx-nefertiti = "^0.3.2"
+sphinx-book-theme = "^1.1.2"
+sphinx-wagtail-theme = "^6.3.0"
+pydata-sphinx-theme = "^0.15.2"
 
 [tool.poetry.group.dev]
 # Here, the dependancies in the dev group won't be added unless we specify
