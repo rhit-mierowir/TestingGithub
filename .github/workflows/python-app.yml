@@ -56,7 +56,7 @@ jobs:
     - name: Install Testing Dependencies
       run: |
         poetry install --with gh_tests
-        poetry self install --sync --with gh_tests
+        poetry self install --sync --group gh_tests
     
     - name: Run Short Tests
       run: |
