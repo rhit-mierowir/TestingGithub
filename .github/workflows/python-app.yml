@@ -47,8 +47,8 @@ jobs:
       run: |
         sudo apt update
         sudo apt install pipx
-        pipx ensurepath
-        sudo pipx ensurepath --global 
+        pipx ensurepath 
+        sudo pipx ensurepath
           
     - name: Install poetry
       run: pipx install poetry
