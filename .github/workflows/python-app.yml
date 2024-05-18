@@ -17,10 +17,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    #This matrix runs this test in 
+    #This matrix runs this test in all of the following versions.
     strategy:
       matrix:
-        python-version: ["3.8","3.9","3.10","3.11","3.12"]
+        python-version: ["3.10","3.11","3.12"]
 
     steps:
     - uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
 
           
     - name: Install poetry
-      run: pip install poetry
+      run: pip install poetry pytest
       
     - name: Install Testing Dependencies
       run: poetry install --with gh_tests
