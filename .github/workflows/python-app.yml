@@ -54,7 +54,9 @@ jobs:
       run: pipx install poetry
       
     - name: Install Testing Dependencies
-      run: poetry install --with gh_tests
+      run: |
+        poetry install --with gh_tests
+        poetry self install --sync
     
     - name: Run Short Tests
       run: |
@@ -62,7 +64,7 @@ jobs:
     
     - name: Run Long Tests
       run: |
-        poetry run pytest 
+        run pytest 
       #This only reruns the same tests, these would normally be the longer tests
 
     - name: Upload pytest test results
