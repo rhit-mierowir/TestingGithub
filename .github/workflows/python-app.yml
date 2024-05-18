@@ -42,8 +42,13 @@ jobs:
     # - name: Test with pytest
     #   run: |
     #     pytest
+
+          
+    - name: Install poetry
+      run: pip install poetry
+      
     - name: Install Testing Dependencies
-      run: poetry install --group gh_tests
+      run: poetry install --with gh_tests
     
     - name: Run Short Tests
       run: pytest
