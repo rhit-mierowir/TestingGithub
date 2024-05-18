@@ -55,8 +55,11 @@ jobs:
       
     - name: Install Testing Dependencies
       run: |
-        poetry install --with gh_tests
-        poetry self install --sync --group gh_tests
+        poetry install  --user --with gh_tests
+        pip install pytest 
+        
+      # for some reason pip needs to be involved when importing pytest, or run pytest prefixed with poetry.
+      # I believe that this is because poetry installs everything to virtual environments.
     
     - name: Run Short Tests
       run: |
