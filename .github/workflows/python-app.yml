@@ -51,7 +51,9 @@ jobs:
       run: poetry install --with gh_tests
     
     - name: Run Short Tests
-      run: pytest
+      run: |
+        pytest
     
     - name: Run Long Tests
-      run: pytest #This only reruns the same tests, these would normally be the longer tests
+      run: |
+        pytest #This only reruns the same tests, these would normally be the longer tests
