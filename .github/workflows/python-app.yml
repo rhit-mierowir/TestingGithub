@@ -51,7 +51,7 @@ jobs:
         sudo pipx ensurepath
           
     - name: Install poetry
-      run: pipx install poetry
+      run: pipx install poetry pytest
       
     - name: Install Testing Dependencies
       run: poetry install --with gh_tests
