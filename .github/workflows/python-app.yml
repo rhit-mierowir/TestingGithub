@@ -51,11 +51,13 @@ jobs:
         sudo pipx ensurepath
           
     - name: Install poetry
-      run: pipx install poetry
+      run: |
+        pipx install poetry
+        poetry config settings.virtualenvs.create false
       
     - name: Install Testing Dependencies
       run: |
-        poetry install  --user --with gh_tests
+        poetry install --with gh_tests
         pip install pytest 
         
       # for some reason pip needs to be involved when importing pytest, or run pytest prefixed with poetry.
