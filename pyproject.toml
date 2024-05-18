@@ -62,7 +62,17 @@ documentation = "https://rhit-mierowir.github.io/TestingGithub/"
 #   "Topic :: System :: Hardware :: Universal Serial Bus (USB)",
 #   "Topic :: System :: Hardware :: Universal Serial Bus (USB) :: Miscellaneous"
 # ]
-
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+docs = [
+    "furo",
+    "sphinxnotes-any",
+    "sphinx_design",
+    "sphinx_copybutton",
+    "sphinxcontrib-gtagjs",
+]
 
 #This is where we can put other URLs we want to link to
 [tool.poetry.urls]
