@@ -30,7 +30,7 @@ authors = [
 #exclude = ["requirements.txt"]
 
 #Package information & websites
-package-mode = false 
+package-mode = false
 # Change to true when we want to publish
 readme = "README.md"
 license = "AGPL-1.0-or-later" # more licenses at https://spdx.org/licenses/
@@ -38,54 +38,18 @@ homepage = "https://evolvablehardware.org/"
 repository = "https://github.com/rhit-mierowir/TestingGithub"
 documentation = "https://rhit-mierowir.github.io/TestingGithub/"
 
-#
-#keywords = ["TestingGithub", "Esperimental"]
-#classifiers = [ # See https://pypi.org/classifiers/
-#  "Private :: Do Not Upload", # This makes pypy reject itr
-#  # Note Python and Lisense requirement are filled in by python dependancy and lisence property
-#  "Development Status :: 1 - Planning",
-#  "Environment :: Console",
-#   "Intended Audience :: Developers",
-#   "Intended Audience :: Education",
-#   "Intended Audience :: End Users/Desktop",
-#   "Intended Audience :: Science/Research",
-#   "Operating System :: POSIX :: Linux",
-#   "Programming Language :: C++",
-#   "Topic :: Documentation :: Sphinx",
-#   "Topic :: Scientific/Engineering",
-#   "Topic :: Scientific/Engineering :: Artificial Intelligence",
-#   "Topic :: Scientific/Engineering :: Artificial Life",
-#   "Topic :: Scientific/Engineering :: Bio-Informatics",
-#   "Topic :: Software Development :: Testing",
-#   "Topic :: Software Development :: Version Control :: Git",
-#   "Topic :: System :: Hardware",
-#   "Topic :: System :: Hardware :: Universal Serial Bus (USB)",
-#   "Topic :: System :: Hardware :: Universal Serial Bus (USB) :: Miscellaneous"
-# ]
-[project.optional-dependencies]
-test = [
-    "pytest",
-]
-docs = [
-    "furo",
-    "sphinxnotes-any",
-    "sphinx_design",
-    "sphinx_copybutton",
-    "sphinxcontrib-gtagjs",
-]
-
 #This is where we can put other URLs we want to link to
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/python-poetry/poetry/issues"
 
+#dependancies needed to run the app under normal conditions
 [tool.poetry.dependencies]
 python = "^3.10"
 toml = "^0.10.2"
 serial = "^0.0.97"
 
+#docs group is all that's needed to compile sphinx.
 [tool.poetry.group.docs]
-# Here, the dependancies in the dev group won't be added unless we specify
-# poetry install --with dev
 optional = true
 
 [tool.poetry.group.docs.dependencies]
@@ -95,20 +59,28 @@ sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
 
+#dev group for developers updating the code
 [tool.poetry.group.dev]
-# Here, the dependancies in the dev group won't be added unless we specify
-# poetry install --with dev
-optional = false
+optional = true
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
-
-# For Sphinx:
 Sphinx = "^7.2.6"
 sphinx-nefertiti = "^0.3.2"
 sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
+
+#gh_tests group for all testing on github.
+[tool.poetry.group.gh_tests]
+optional = true
+
+[tool.poetry.group.gh_tests.dependencies]
+pytest = "^8.2.0"
+
+#tests group is group for testing in local contexts
+[tool.poetry.group.tests.dependencies]
+pytest = "^8.2.0"
 
 [build-system]
 requires = ["poetry-core"]
