@@ -42,6 +42,16 @@ jobs:
     # - name: Test with pytest
     #   run: |
     #     pytest
+    - name: Install pipx
+      run: | 
+          sudo apt update
+          sudo apt install pipx
+          pipx ensurepath
+          sudo pipx ensurepath --global # optional to allow pipx actions in global scope. See "Global installation" section below.
+          
+    - name: Install poetry
+      run: pipx install poetry
+      
     - name: Install Testing Dependencies
       run: poetry install --group gh_tests
     
