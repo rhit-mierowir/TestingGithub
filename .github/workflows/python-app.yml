@@ -51,7 +51,7 @@ jobs:
         sudo pipx ensurepath
           
     - name: Install poetry
-      run: pipx install poetry pytest
+      run: pipx install poetry
       
     - name: Install Testing Dependencies
       run: poetry install --with gh_tests
@@ -62,4 +62,13 @@ jobs:
     
     - name: Run Long Tests
       run: |
-        pytest #This only reruns the same tests, these would normally be the longer tests
+        pytest 
+      #This only reruns the same tests, these would normally be the longer tests
+
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: junit/test-results-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
