@@ -5,7 +5,7 @@
 Welcome to Testing GitHub's documentation!
 ==========================================
 
-Testing that this gets updated correctly.
+Testing that this gets updated correctly. Now.
 
 .. toctree::
    :maxdepth: 2
