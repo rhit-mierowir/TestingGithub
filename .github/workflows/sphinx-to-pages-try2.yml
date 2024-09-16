@@ -18,9 +18,10 @@ jobs:
       - name: Install dependencies with Sphinx
         run: |
           poetry install --with gh_docs --no-root
+          poetry shell
       - name: Sphinx build
         run: |
-          poetry run sphinx-build docs/sphinx/source _build
+          sphinx-build docs/sphinx/source _build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -29,3 +30,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/
           force_orphan: true
+      - name: Exit Poetry shell
+        run: |
+          exit
