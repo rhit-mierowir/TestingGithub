@@ -1,0 +1,26 @@
+name: Greeting on variable day
+
+on:
+  workflow_dispatch
+
+env:
+  DAY_OF_WEEK: Monday
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
+    steps:
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
+
+      - name: "This next step only knows Day and Greeting."
+        run: echo "I know $Greeting and the day of the week is $DAY_OF_WEEK"
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "This job only knows day"
+        run: echo "I only know $DAY_OF_WEEK. :("
