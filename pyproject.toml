@@ -77,7 +77,19 @@ optional = true
 
 [tool.poetry.group.gh_tests.dependencies]
 pytest = "^8.2.0"
+
+#gh_tests group for building documentation on github.
+[tool.poetry.group.gh_docs]
+optional = true
+
+[tool.poetry.group.gh_docs.dependencies]
+pytest = "^8.2.0"
 toml = "^0.10.2"
+Sphinx = "^7.2.6"
+sphinx-nefertiti = "^0.3.2"
+sphinx-book-theme = "^1.1.2"
+sphinx-wagtail-theme = "^6.3.0"
+pydata-sphinx-theme = "^0.15.2"
 
 #tests group is group for testing in local contexts
 [tool.poetry.group.tests.dependencies]
