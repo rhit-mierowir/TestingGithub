@@ -5,6 +5,8 @@
 Welcome to Testing GitHub's documentation!
 ==========================================
 
+Testing that this gets updated correctly.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
