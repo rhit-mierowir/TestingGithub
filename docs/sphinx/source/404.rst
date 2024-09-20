@@ -3,11 +3,15 @@
     This page will be converted to "404.html" which github will automatically render when an invalid page is requested.
     https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site
 
----------------------------
-Oops... We can't find that. 
----------------------------
+---------
+404 Error
+---------
 
-Isn't this interesting. It would be neat if we could find it.
+========================================
+Oops... We can't find the URL requested. 
+========================================
+
+Isn't this interesting. We are usually are able to find all of the pages we have available.
 
 .. warning ::
     Look for something that exists next time.
