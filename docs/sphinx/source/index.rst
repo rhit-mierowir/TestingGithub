@@ -7,10 +7,11 @@ Welcome to Testing GitHub's documentation!
 
 Testing that this gets updated correctly. Now. This too!. this three!. 
 
-This is the main Branch.
+WHAT TIME IS IT??? DEVELOPING TIME!!
+(And not for photography.)
 
 .. note::
-   This is a note for something on the main branch.
+   This is a note for something on the DEVELOP branch.
 
 .. toctree::
    :maxdepth: 2
