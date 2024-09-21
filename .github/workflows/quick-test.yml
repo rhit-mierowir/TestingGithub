@@ -9,7 +9,7 @@ env:
     SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
     IS_MAIN_SITE_BRANCH: ${{ toJson(github.env.BRANCH_NAME == github.env.MAIN_BRANCH)}}
     IS_SECONDARY_SITE_BRANCH: ${{toJson(github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH)}}
-    MUST_REGENERATE_SITE: ${{toJson(github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH)}}
+    MUST_REGENERATE_SITE: ${{github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH}}
 
 permissions:
   contents: write
