@@ -21,7 +21,7 @@ permissions:
 jobs:
   docs:
     runs-on: ubuntu-latest
-    if: ${{github.event_name == 'push' && github.env.MUST_REGENERATE_SITE}}
+    if: ${{github.event_name == 'push' && (github.env.BRANCH_NAME == github.env.MAIN_BRANCH || github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH)}}
 
     steps:
       
