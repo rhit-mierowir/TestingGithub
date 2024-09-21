@@ -33,6 +33,7 @@ jobs:
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
+          ls -a
 
       - name: Checkout Main Branch
         uses: actions/checkout@v4
