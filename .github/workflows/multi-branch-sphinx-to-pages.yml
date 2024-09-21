@@ -30,6 +30,7 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
+          pwd
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
