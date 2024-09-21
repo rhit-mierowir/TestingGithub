@@ -17,7 +17,12 @@ permissions:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    env:
+        IS_MAIN_SITE_BRANCH: ${{ github.env.BRANCH_NAME == github.env.MAIN_BRANCH}}
+        IS_SECONDARY_SITE_BRANCH: ${{github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH}}
+        MUST_REGENERATE_SITE: ${{github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH}}
     steps:
+        
         - run: |
             echo ${{github.env.BRANCH_NAME}}
             echo "Is Push ${{github.event_name == 'push'}}"
