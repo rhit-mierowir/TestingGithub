@@ -18,8 +18,6 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     env:
-        IS_MAIN_SITE_BRANCH: ${{ github.env.BRANCH_NAME == github.env.MAIN_BRANCH}}
-        IS_SECONDARY_SITE_BRANCH: ${{github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH}}
         MUST_REGENERATE_SITE: ${{github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH}}
     steps:
         
@@ -28,7 +26,7 @@ jobs:
             echo "Is Push ${{github.event_name == 'push'}}"
             echo "main ${{format('{0}',github.env.MAIN_BRANCH)}}"
             echo "secondary $SECONDARY_BRANCH"
-            echo "is main ${{toJson(github.env.IS_MAIN_SITE_BRANCH)}}"
+            echo "is main $IS_MAIN_SITE_BRANCH"
             echo "is seccondary ${{github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH}}"
             echo "is must regenerate $MUST_REGENERATE_SITE"
 
