@@ -46,6 +46,11 @@ jobs:
         with:
           ref: ${{github.env.SECONDARY_BRANCH}}
           path: ${{github.env.SECONDARY_BRANCH}}
+      
+      - name: Return to Main Directory
+        run: |
+          cd ~
+          ls -a
 
       - name: Install General dependencies
         run: |
