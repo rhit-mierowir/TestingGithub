@@ -49,7 +49,9 @@ jobs:
       
       - name: Return to Main Directory
         run: |
+          pwd
           cd ~
+          pwd
           ls -a
 
       - name: Install General dependencies
