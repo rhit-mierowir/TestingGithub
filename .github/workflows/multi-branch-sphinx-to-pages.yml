@@ -30,9 +30,9 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
-          mkdir $github.env.MAIN_BRANCH
-          mkdir $github.env.SECONDARY_BRANCH
-          mkdir $github.env.TEMP_WEBSITE_FOLDER
+          mkdir $MAIN_BRANCH
+          mkdir $SECONDARY_BRANCH
+          mkdir $TEMP_WEBSITE_FOLDER
 
       - name: Checkout Main Branch
         uses: actions/checkout@v4
