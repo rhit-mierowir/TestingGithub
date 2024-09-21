@@ -55,6 +55,8 @@ jobs:
 
       - name: Install General dependencies
         run: |
+          pwd
+          ls -a
           pip install poetry
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
