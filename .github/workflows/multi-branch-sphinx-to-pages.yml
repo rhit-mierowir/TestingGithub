@@ -53,6 +53,8 @@ jobs:
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
+          ls -a
+          pwd
           cd $MAIN_BRANCH
           poetry install --with gh_docs --no-root
 
@@ -63,6 +65,7 @@ jobs:
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
+          ls -a
           cd $SECONDARY_BRANCH
           poetry install --with gh_docs --no-root
   
