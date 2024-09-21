@@ -52,27 +52,26 @@ jobs:
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
-          cd ${{github.env.MAIN_BRANCH}}
+          cd $MAIN_BRANCH
           poetry install --with gh_docs --no-root
 
       - name: 'MAIN SITE: Sphinx build'
         run: |
-          poetry run sphinx-build docs/sphinx/source ../${{ github.env.TEMP_WEBSITE_FOLDER }}
+          poetry run sphinx-build docs/sphinx/source ../$TEMP_WEBSITE_FOLDER
           cd ..
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
-          cd ${{github.env.SECONDARY_BRANCH}}
+          cd $SECONDARY_BRANCH
           poetry install --with gh_docs --no-root
   
       - name: 'SECONDARY SITE: Sphinx build'
         run: |
-          poetry run sphinx-build docs/sphinx/source ../${{ github.env.TEMP_WEBSITE_FOLDER }}/${{ github.env.SECONDARY_SITE_DIRECTORY }}
+          poetry run sphinx-build docs/sphinx/source ../$TEMP_WEBSITE_FOLDER }}/$SECONDARY_SITE_DIRECTORY
           cd ..
 
       - name: Deploy Combined Website to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.env.MAIN_BRANCH }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
