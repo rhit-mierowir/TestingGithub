@@ -10,6 +10,8 @@ Testing that this gets updated correctly. Now. This too!. this three!.
 WHAT TIME IS IT??? DEVELOPING TIME!!
 (And not for photography.)
 
+More develop time.
+
 .. note::
    This is a note for something on the DEVELOP branch.
 
@@ -19,6 +21,7 @@ WHAT TIME IS IT??? DEVELOPING TIME!!
 
    nonsense/index.rst
    code/index.rst
+   dev/index.rst
 
 
 
