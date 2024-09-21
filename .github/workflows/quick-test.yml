@@ -1,0 +1,17 @@
+name: quick test
+run-name: ${{ github.actor }} is trying to test stuff.
+
+on: [push, pull_request, workflow_dispatch]
+
+env:
+    BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+        - run: |
+            echo ${{github.env.BRANCH_NAME}}
