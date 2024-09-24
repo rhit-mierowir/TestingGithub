@@ -30,7 +30,7 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
-          Path=`pwd`
+          main_dirs=`pwd`
           pwd 
           echo $main_dirs
           mkdir $MAIN_BRANCH
