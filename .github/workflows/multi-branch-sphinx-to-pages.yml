@@ -64,8 +64,9 @@ jobs:
         run: |
         
           poetry run sphinx-build docs/sphinx/source docs/sphinx/build
-          cp -r docs/sphinx/build $main_dirs/$TEMP_WEBSITE_FOLDER
           echo "$main_dirs/$TEMP_WEBSITE_FOLDER"
+          cp -r docs/sphinx/build $main_dirs/$TEMP_WEBSITE_FOLDER
+          
           cd $main_dirs
 
       - name: Checkout Secondary Branch
