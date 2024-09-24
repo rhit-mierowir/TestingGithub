@@ -30,7 +30,9 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
-          pwd
+          Path=`pwd`
+          pwd 
+          echo $main_dirs
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
@@ -68,7 +70,7 @@ jobs:
 
       - name: 'MAIN SITE: Sphinx build'
         run: |
-          poetry run sphinx-build docs/sphinx/source ../$TEMP_WEBSITE_FOLDER
+          poetry run sphinx-build docs/sphinx/source $main_dirs/$TEMP_WEBSITE_FOLDER
           cd ..
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
@@ -79,7 +81,7 @@ jobs:
   
       - name: 'SECONDARY SITE: Sphinx build'
         run: |
-          poetry run sphinx-build docs/sphinx/source ../$TEMP_WEBSITE_FOLDER }}/$SECONDARY_SITE_DIRECTORY
+          poetry run sphinx-build docs/sphinx/source $main_dirs/$TEMP_WEBSITE_FOLDER/$SECONDARY_SITE_DIRECTORY
           cd ..
 
       - name: Deploy Combined Website to GitHub Pages
