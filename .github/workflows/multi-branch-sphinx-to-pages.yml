@@ -39,21 +39,7 @@ jobs:
       - name: Test thing
         run: |
           pwd
-          ls -a
-          
-
-      - name: Checkout Main Branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{github.env.MAIN_BRANCH}}
-          path: ${{github.env.MAIN_BRANCH}}
-    
-      - name: Checkout Secondary Branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{github.env.SECONDARY_BRANCH}}
-          path: ${{github.env.SECONDARY_BRANCH}}
-      
+          ls -a      
 
       - name: Install General dependencies
         run: |
@@ -61,23 +47,33 @@ jobs:
           ls -a
           pip install poetry
           echo $main_dirs
+      
+      - name: Checkout Main Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.env.MAIN_BRANCH}}
+          path: ${{github.env.MAIN_BRANCH}}
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
           ls -a
           pwd
-          cd $MAIN_BRANCH
           poetry install --with gh_docs --no-root
 
       - name: 'MAIN SITE: Sphinx build'
         run: |
           poetry run sphinx-build docs/sphinx/source $main_dirs/$TEMP_WEBSITE_FOLDER
-          cd ..
+          cd $main_dirs
+
+      - name: Checkout Secondary Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.env.SECONDARY_BRANCH}}
+          path: ${{github.env.SECONDARY_BRANCH}}
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
           ls -a
-          cd $SECONDARY_BRANCH
           poetry install --with gh_docs --no-root
   
       - name: 'SECONDARY SITE: Sphinx build'
