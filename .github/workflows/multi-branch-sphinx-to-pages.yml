@@ -60,6 +60,7 @@ jobs:
           pwd
           ls -a
           pip install poetry
+          echo $main_dirs
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
