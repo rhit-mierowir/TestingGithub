@@ -5,11 +5,11 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   
-  MAIN_BRANCH: '/home/runner/work/TestingGithub/TestingGithub/main' # Have this specified in some other file.
-  SECONDARY_BRANCH: '/home/runner/work/TestingGithub/TestingGithub/develop' # Have this specified in some other file.
+  MAIN_BRANCH: 'main' # Have this specified in some other file.
+  SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
   TEMP_WEBSITE_FOLDER: '.website'
   SECONDARY_SITE_DIRECTORY: 'dev'
-  main_dirs: '/home/runner/work/TestingGithub/TestingGithub'
+  #main_dirs: '/home/runner/work/TestingGithub/TestingGithub' <-- This is  ${{github.env.GITHUB_WORKSPACE}}
 
   BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
   IS_MAIN_SITE_BRANCH: ${{ github.env.BRANCH_NAME == github.env.MAIN_BRANCH}}
@@ -35,7 +35,7 @@ jobs:
           pwd 
           echo $main_dirs
           echo $GITHUB_WORKSPACE
-          echo ${{github.env.GITHUB_WORKSPACE}}
+          echo ${{github.env.GITHUB_WORKSPACE}}/${{github.env.MAIN_BRANCH}}
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
