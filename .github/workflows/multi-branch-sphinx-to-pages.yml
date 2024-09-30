@@ -9,6 +9,7 @@ env:
   SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
   TEMP_WEBSITE_FOLDER: '.website'
   SECONDARY_SITE_DIRECTORY: 'dev'
+  main_dirs: '/home/runner/work/TestingGithub/TestingGithub'
 
   BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
   IS_MAIN_SITE_BRANCH: ${{ github.env.BRANCH_NAME == github.env.MAIN_BRANCH}}
@@ -30,7 +31,7 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
-          main_dirs=`pwd`
+          #main_dirs=`pwd`
           pwd 
           echo $main_dirs
           mkdir $MAIN_BRANCH
@@ -39,12 +40,12 @@ jobs:
       - name: Test thing
         run: |
           pwd
-          ls -a      
+          ls -a $main_dirs     
 
       - name: Install General dependencies
         run: |
           pwd
-          ls -a
+          ls -a $main_dirs
           pip install poetry
           echo $main_dirs
       
@@ -56,7 +57,7 @@ jobs:
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
-          ls -a
+          ls -a $main_dirs
           pwd
           poetry install --with gh_docs --no-root
 
@@ -77,7 +78,8 @@ jobs:
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
-          ls -a
+          ls -a $main_dirs
+          pwd
           poetry install --with gh_docs --no-root
   
       - name: 'SECONDARY SITE: Sphinx build'
