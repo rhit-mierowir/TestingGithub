@@ -37,6 +37,10 @@ jobs:
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
+          echo local check
+          ls -a
+          echo main check
+          ls -a $main_dirs
       - name: Test thing
         run: |
           pwd
