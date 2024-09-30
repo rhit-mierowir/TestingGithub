@@ -34,6 +34,8 @@ jobs:
           #main_dirs=`pwd`
           pwd 
           echo $main_dirs
+          echo $GITHUB_WORKSPACE
+          echo ${{github.env.GITHUB_WORKSPACE}}
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
