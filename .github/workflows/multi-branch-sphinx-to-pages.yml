@@ -5,8 +5,8 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   
-  MAIN_BRANCH: 'main' # Have this specified in some other file.
-  SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
+  MAIN_BRANCH: '/home/runner/work/TestingGithub/TestingGithub/main' # Have this specified in some other file.
+  SECONDARY_BRANCH: '/home/runner/work/TestingGithub/TestingGithub/develop' # Have this specified in some other file.
   TEMP_WEBSITE_FOLDER: '.website'
   SECONDARY_SITE_DIRECTORY: 'dev'
   main_dirs: '/home/runner/work/TestingGithub/TestingGithub'
@@ -57,7 +57,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{github.env.MAIN_BRANCH}}
-          path: ${{github.env.main_dirs}}/${{github.env.MAIN_BRANCH}}
+          path: ${{github.env.MAIN_BRANCH}}
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
@@ -78,7 +78,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{github.env.SECONDARY_BRANCH}}
-          path: ${{github.env.main_dirs}}/${{github.env.SECONDARY_BRANCH}}
+          path: ${{github.env.SECONDARY_BRANCH}}
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
