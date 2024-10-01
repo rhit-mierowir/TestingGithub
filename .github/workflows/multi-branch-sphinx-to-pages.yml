@@ -9,7 +9,7 @@ env:
   SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
   TEMP_WEBSITE_FOLDER: '.website'
   SECONDARY_SITE_DIRECTORY: 'dev'
-  #main_dirs: '/home/runner/work/TestingGithub/TestingGithub' <-- This is  ${{github.env.GITHUB_WORKSPACE}}
+  #main_dirs: '/home/runner/work/TestingGithub/TestingGithub's <-- This is  ${{github.env.GITHUB_WORKSPACE}}
 
   BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
   IS_MAIN_SITE_BRANCH: ${{ github.env.BRANCH_NAME == github.env.MAIN_BRANCH}}
@@ -23,7 +23,7 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     if: ${{github.event_name == 'push' && (github.env.BRANCH_NAME == github.env.MAIN_BRANCH || github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH)}}
-
+        #Need to fix this line so it works when push to secondary branch
     steps:
       
       - name: Setup python
