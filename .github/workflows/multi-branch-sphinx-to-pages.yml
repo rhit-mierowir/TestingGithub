@@ -64,16 +64,17 @@ jobs:
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
-          ls -a ${{github.env.GITHUB_WORKSPACE}}
+          ls -a ${{github.workspace}}
           pwd
+          cd ${{github.workspace}}/${{env.MAIN_BRANCH}}
           poetry install --with gh_docs --no-root
 
       - name: 'MAIN SITE: Sphinx build'
         run: |
         
           poetry run sphinx-build docs/sphinx/source docs/sphinx/build
-          echo "${{github.env.GITHUB_WORKSPACE}}/${{env.TEMP_WEBSITE_FOLDER}}"
-          cp -r docs/sphinx/build ${{github.env.GITHUB_WORKSPACE}}/${{env.TEMP_WEBSITE_FOLDER}}
+          echo "${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}"
+          cp -r docs/sphinx/build ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}
           
           cd $main_dirs
 
@@ -81,11 +82,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{env.SECONDARY_BRANCH}}
-          path: ${{github.env.GITHUB_WORKSPACE}} / ${{env.SECONDARY_BRANCH}}
+          path: ${{github.workspace}} / ${{env.SECONDARY_BRANCH}}
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
-          ls -a ${{github.env.GITHUB_WORKSPACE}}
+          ls -a ${{github.workspace}}
           pwd
           poetry install --with gh_docs --no-root
   
