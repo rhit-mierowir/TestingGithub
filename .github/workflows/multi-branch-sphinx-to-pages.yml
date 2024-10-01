@@ -39,6 +39,7 @@ jobs:
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
           echo local check
+          echo ${{github.workspace}}
           ls -a
           echo main check
           ls -a $main_dirs
@@ -59,7 +60,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{env.MAIN_BRANCH}}
-          path: ${{env.GITHUB_WORKSPACE}}/${{env.MAIN_BRANCH}}
+          path: ${{github.env.GITHUB_WORKSPACE}}/${{env.MAIN_BRANCH}}
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
