@@ -89,5 +89,5 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ github.env.TEMP_WEBSITE_FOLDER }}
+          publish_dir: ${{ env.TEMP_WEBSITE_FOLDER }}
           force_orphan: true
