@@ -63,6 +63,7 @@ jobs:
 
       - name: 'MAIN SITE: Sphinx build'
         run: |
+          cd ${{github.workspace}}/${{env.MAIN_BRANCH}}
           pwd
           ls -a
           poetry run sphinx-build docs/sphinx/source docs/sphinx/build
