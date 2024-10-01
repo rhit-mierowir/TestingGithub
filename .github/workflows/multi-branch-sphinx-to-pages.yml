@@ -73,7 +73,7 @@ jobs:
         run: |
           cd ${{github.workspace}}/${{env.SECONDARY_BRANCH}}
           poetry run sphinx-build docs/sphinx/source ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}/${{env.SECONDARY_SITE_DIRECTORY}}
-          cp -r docs/sphinx/build/*
+          
 
       - name: Deploy Combined Website to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
