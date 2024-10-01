@@ -58,7 +58,7 @@ jobs:
       - name: Checkout Main Branch
         uses: actions/checkout@v4
         with:
-          ref: $MAIN_BRANCH
+          ref: ${{env.MAIN_BRANCH}}
           path: $GITHUB_WORKSPACE/$MAIN_BRANCH
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
