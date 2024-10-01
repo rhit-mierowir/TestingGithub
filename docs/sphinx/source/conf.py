@@ -36,7 +36,7 @@ sys.path.append(directory_of_source_code)
 
 
 html_theme = py_project_data["config"]["sphinx"]["theme"]
-#html_theme = 'sphinx_book_theme'
+html_theme = 'sphinx_book_theme' # change html theme
 #html_theme = 'sphinx_wagtail_theme'
 #html_theme = 'sphinx_nefertiti'
 #html_theme = 'pydata_sphinx_theme'
