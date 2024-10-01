@@ -5,8 +5,8 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   
-  MAIN_BRANCH: 'main' # Have this specified in some other file.
-  SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
+  MAIN_BRANCH: '$GITHUB_WORKSPACE/main' # Have this specified in some other file.
+  SECONDARY_BRANCH: '$GITHUB_WORKSPACE/develop' # Have this specified in some other file.
   TEMP_WEBSITE_FOLDER: '.website'
   SECONDARY_SITE_DIRECTORY: 'dev'
   #main_dirs: '/home/runner/work/TestingGithub/TestingGithub' <-- This is  ${{github.env.GITHUB_WORKSPACE}}
