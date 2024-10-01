@@ -34,7 +34,7 @@ jobs:
           #main_dirs=`pwd`
           pwd 
           echo $GITHUB_WORKSPACE
-          echo ${{github.env.GITHUB_WORKSPACE}}/${{github.env.MAIN_BRANCH}}
+          echo $GITHUB_WORKSPACE/$MAIN_BRANCH
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
@@ -45,7 +45,7 @@ jobs:
       - name: Test thing
         run: |
           pwd
-          ls -a ${{github.env.GITHUB_WORKSPACE}}     
+          ls -a $GITHUB_WORKSPACE
 
       - name: Install General dependencies
         run: |
@@ -53,12 +53,13 @@ jobs:
           ls -a ${{github.env.GITHUB_WORKSPACE}}
           pip install poetry
           echo ${{github.env.GITHUB_WORKSPACE}}
+          
       
       - name: Checkout Main Branch
         uses: actions/checkout@v4
         with:
-          ref: ${{github.env.MAIN_BRANCH}}
-          path: ${{github.env.GITHUB_WORKSPACE}}/${{github.env.MAIN_BRANCH}}
+          ref: $MAIN_BRANCH
+          path: $GITHUB_WORKSPACE/$MAIN_BRANCH
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
