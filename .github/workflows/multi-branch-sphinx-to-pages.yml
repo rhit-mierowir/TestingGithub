@@ -31,23 +31,14 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
-          pwd 
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
-
-          echo main check
-          ls -a ${{github.workspace}}
-      - name: Test thing
-        run: |
-          pwd
-          ls -a $GITHUB_WORKSPACE
 
       - name: Install General dependencies
         run: |
           pip install poetry
           
-      
       - name: Checkout Main Branch
         uses: actions/checkout@v4
         with:
@@ -63,7 +54,7 @@ jobs:
         run: |
           cd ${{github.workspace}}/${{env.MAIN_BRANCH}}
           poetry run sphinx-build docs/sphinx/source docs/sphinx/build
-          cp -r docs/sphinx/build ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}
+          cp -r docs/sphinx/build/* ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}
 
       - name: Checkout Secondary Branch
         uses: actions/checkout@v4
@@ -82,7 +73,7 @@ jobs:
         run: |
           cd ${{github.workspace}}/${{env.SECONDARY_BRANCH}}
           poetry run sphinx-build docs/sphinx/source ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}/${{env.SECONDARY_SITE_DIRECTORY}}
-          cd ..
+          cp -r docs/sphinx/build/*
 
       - name: Deploy Combined Website to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
