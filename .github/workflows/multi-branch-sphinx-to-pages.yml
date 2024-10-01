@@ -5,8 +5,8 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   
-  MAIN_BRANCH: '$GITHUB_WORKSPACE/main' # Have this specified in some other file.
-  SECONDARY_BRANCH: '$GITHUB_WORKSPACE/develop' # Have this specified in some other file.
+  MAIN_BRANCH: 'main' # Have this specified in some other file.
+  SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
   TEMP_WEBSITE_FOLDER: '.website'
   SECONDARY_SITE_DIRECTORY: 'dev'
   #main_dirs: '/home/runner/work/TestingGithub/TestingGithub' <-- This is  ${{github.env.GITHUB_WORKSPACE}}
@@ -33,7 +33,6 @@ jobs:
         run: |
           #main_dirs=`pwd`
           pwd 
-          echo $main_dirs
           echo $GITHUB_WORKSPACE
           echo ${{github.env.GITHUB_WORKSPACE}}/${{github.env.MAIN_BRANCH}}
           mkdir $MAIN_BRANCH
@@ -46,24 +45,24 @@ jobs:
       - name: Test thing
         run: |
           pwd
-          ls -a $main_dirs     
+          ls -a ${{github.env.GITHUB_WORKSPACE}}     
 
       - name: Install General dependencies
         run: |
           pwd
-          ls -a $main_dirs
+          ls -a ${{github.env.GITHUB_WORKSPACE}}
           pip install poetry
-          echo $main_dirs
+          echo ${{github.env.GITHUB_WORKSPACE}}
       
       - name: Checkout Main Branch
         uses: actions/checkout@v4
         with:
           ref: ${{github.env.MAIN_BRANCH}}
-          path: ${{github.env.MAIN_BRANCH}}
+          path: ${{github.env.GITHUB_WORKSPACE}}/${{github.env.MAIN_BRANCH}}
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
-          ls -a $main_dirs
+          ls -a ${{github.env.GITHUB_WORKSPACE}}
           pwd
           poetry install --with gh_docs --no-root
 
@@ -71,8 +70,8 @@ jobs:
         run: |
         
           poetry run sphinx-build docs/sphinx/source docs/sphinx/build
-          echo "$main_dirs/$TEMP_WEBSITE_FOLDER"
-          cp -r docs/sphinx/build $main_dirs/$TEMP_WEBSITE_FOLDER
+          echo "${{github.env.GITHUB_WORKSPACE}}/${{github.env.TEMP_WEBSITE_FOLDER}}"
+          cp -r docs/sphinx/build ${{github.env.GITHUB_WORKSPACE}}/${{github.env.TEMP_WEBSITE_FOLDER}}
           
           cd $main_dirs
 
@@ -80,11 +79,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{github.env.SECONDARY_BRANCH}}
-          path: ${{github.env.SECONDARY_BRANCH}}
+          path: ${{github.env.GITHUB_WORKSPACE}}/${{github.env.SECONDARY_BRANCH}}
 
       - name: 'SECONDARY SITE: Install dependencies with Sphinx'
         run: |
-          ls -a $main_dirs
+          ls -a ${{github.env.GITHUB_WORKSPACE}}
           pwd
           poetry install --with gh_docs --no-root
   
