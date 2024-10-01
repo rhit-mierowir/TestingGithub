@@ -31,18 +31,13 @@ jobs:
 
       - name: Setup Directory Structure
         run: |
-          #main_dirs=`pwd`
           pwd 
-          echo $GITHUB_WORKSPACE
-          echo $GITHUB_WORKSPACE/$MAIN_BRANCH
           mkdir $MAIN_BRANCH
           mkdir $SECONDARY_BRANCH
           mkdir $TEMP_WEBSITE_FOLDER
-          echo local check
-          echo ${{github.workspace}}
-          ls -a
+
           echo main check
-          ls -a $main_dirs
+          ls -a ${{github.workspace}}
       - name: Test thing
         run: |
           pwd
@@ -50,10 +45,7 @@ jobs:
 
       - name: Install General dependencies
         run: |
-          pwd
-          ls -a ${{github.workspace}}
           pip install poetry
-          echo ${{github.workspace}}
           
       
       - name: Checkout Main Branch
@@ -64,16 +56,16 @@ jobs:
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
-          ls -a ${{github.workspace}}
           pwd
           cd ${{github.workspace}}/${{env.MAIN_BRANCH}}
+          pwd
           poetry install --with gh_docs --no-root
 
       - name: 'MAIN SITE: Sphinx build'
         run: |
-        
+          pwd
+          ls -a
           poetry run sphinx-build docs/sphinx/source docs/sphinx/build
-          echo "${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}"
           cp -r docs/sphinx/build ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}
           
           cd $main_dirs
@@ -92,7 +84,7 @@ jobs:
   
       - name: 'SECONDARY SITE: Sphinx build'
         run: |
-          poetry run sphinx-build docs/sphinx/source $main_dirs/$TEMP_WEBSITE_FOLDER/$SECONDARY_SITE_DIRECTORY
+          poetry run sphinx-build docs/sphinx/source ${{github.workspace}}/${{env.TEMP_WEBSITE_FOLDER}}/${{env.SECONDARY_SITE_DIRECTORY}}
           cd ..
 
       - name: Deploy Combined Website to GitHub Pages
