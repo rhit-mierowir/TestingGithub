@@ -51,16 +51,16 @@ jobs:
       - name: Install General dependencies
         run: |
           pwd
-          ls -a ${{github.env.GITHUB_WORKSPACE}}
+          ls -a ${{github.workspace}}
           pip install poetry
-          echo ${{github.env.GITHUB_WORKSPACE}}
+          echo ${{github.workspace}}
           
       
       - name: Checkout Main Branch
         uses: actions/checkout@v4
         with:
           ref: ${{env.MAIN_BRANCH}}
-          path: ${{github.env.GITHUB_WORKSPACE}}/${{env.MAIN_BRANCH}}
+          path: ${{github.workspace}}/${{env.MAIN_BRANCH}}
 
       - name: 'MAIN SITE: Install dependencies with Sphinx'
         run: |
