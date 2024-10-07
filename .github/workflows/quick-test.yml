@@ -7,12 +7,11 @@ jobs:
   extractinfo:
     runs-on: ubuntu-latest
     name: extract info from toml file
-    outputs:
-      out: ${{steps.step1.outputs.out}}
     steps:
       - run: |
           echo "stuff"
           echo "out=this output stuff" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
 
   use-info:
     runs-on: ubuntu-latest
