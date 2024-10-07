@@ -33,7 +33,7 @@ jobs:
       - id: get-vals
         run: |
           echo "Obtaining values from pyproject.toml script."
-          echo "python_versions=$(poetry run interpret_pyproject.py --python_versions)" >> "$GITHUB_OUTPUT"
+          echo "python_versions=$(poetry run python3 interpret_pyproject.py --python_versions)" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT
 
   use-info:
