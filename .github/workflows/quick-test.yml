@@ -18,7 +18,7 @@ jobs:
     needs: extract-info
     steps: 
       - run: |
-          echo "I got ${{job.extract-info.outputs.out}}"
+          echo "I got ${{jobs.extract-info.outputs.out}}"
 
 
 
