@@ -71,6 +71,13 @@ sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
 
+#This is used when we want to read pyproject.toml while evaluating workflows.
+[tool.poetry.group.gh_read_pyproject]
+optional = true
+
+[tool.poetry.group.gh_read_pyproject.dependencies]
+toml = "^0.10.2"
+
 #gh_tests group for all testing on github.
 [tool.poetry.group.gh_tests]
 optional = true
@@ -98,3 +105,11 @@ pytest = "^8.2.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tests]
+# all values used when testing
+
+[tests.workflows]
+# these are values that need verification in testing
+python-versions = ["3.8","3.9","3.10","3.11","3.12"]
+

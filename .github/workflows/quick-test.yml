@@ -6,14 +6,35 @@ on: push
 jobs:
   extractinfo:
     runs-on: ubuntu-latest
-    name: extract info from toml file
+    name: extract info from toml file form commit
     outputs:
       out: ${{steps.get-vals.outputs.out}}
     steps:
+      - name: Checkout Committed Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.ref_name}} #select committed branch
+      
+      - name: Install pipx
+        run: |
+          sudo apt update
+          sudo apt install pipx
+          pipx ensurepath 
+          sudo pipx ensurepath
+
+      - name: Install sphinx
+        run : |
+          pipx install poetry
+          poetry config virtualenvs.create false --local
+
+      - name: Setup to collect variables
+        run: |
+          poetry install  --with gh_read_pyproject
+
       - id: get-vals
         run: |
-          echo "stuff"
-          echo "out=[thing,other]" >> "$GITHUB_OUTPUT"
+          echo "Obtaining values from pyproject.toml script."
+          echo "python_versions=$(python3 interpret_pyproject.py --python_versions)" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT
 
   use-info:
