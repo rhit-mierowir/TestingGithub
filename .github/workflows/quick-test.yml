@@ -13,16 +13,19 @@ jobs:
       - id: get-vals
         run: |
           echo "stuff"
-          echo "out=this output stuff" >> "$GITHUB_OUTPUT"
+          echo "out=[\"thing\",\"other\"]" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT
 
   use-info:
     runs-on: ubuntu-latest
     name: use info in toml file
     needs: extractinfo
+    strategy:
+      matrix:
+        multstr: ${{fromJson(needs.extractinfo.outputs.out)}}
     steps: 
       - run: |
-          echo "I got ${{needs.extractinfo.outputs.out}}"
+          echo "I got ${{matrix.multstr}}"
 
 
 
