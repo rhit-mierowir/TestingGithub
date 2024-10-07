@@ -13,7 +13,7 @@ jobs:
       - id: get-vals
         run: |
           echo "stuff"
-          echo "out=[\"thing\",\"other\"]" >> "$GITHUB_OUTPUT"
+          echo "out=[thing,other]" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT
 
   use-info:
