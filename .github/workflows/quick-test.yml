@@ -8,9 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     name: extract info from toml file
     outputs:
-      out: ${{steps.step1.outputs.out}}
+      out: ${{steps.get-vals.outputs.out}}
     steps:
-      - run: |
+      - id: get-vals
+        run: |
           echo "stuff"
           echo "out=this output stuff" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT
