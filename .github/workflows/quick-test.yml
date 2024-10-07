@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     name: extract info from toml file form commit
     outputs:
-      out: ${{steps.get-vals.outputs.out}}
+      python_versions: ${{steps.get-vals.outputs.python_versions}}
     steps:
       - name: Checkout Committed Branch
         uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
     needs: extractinfo
     strategy:
       matrix:
-        multstr: ${{fromJson(needs.extractinfo.outputs.out)}}
+        multstr: ${{fromJson(needs.extractinfo.outputs.python_versions)}}
     steps: 
       - run: |
           echo "I got ${{matrix.multstr}}"
