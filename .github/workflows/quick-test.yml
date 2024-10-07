@@ -1,32 +1,58 @@
+
 name: quick test
-run-name: ${{ github.actor }} is trying to test stuff.
-
-on: [push, pull_request, workflow_dispatch]
-
-env:
-    BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
-    MAIN_BRANCH: 'main' # Have this specified in some other file.
-    SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
-    IS_MAIN_SITE_BRANCH: ${{ toJson(github.env.BRANCH_NAME == github.env.MAIN_BRANCH)}}
-    IS_SECONDARY_SITE_BRANCH: ${{toJson(github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH)}}
-    MUST_REGENERATE_SITE: ${$IS_MAIN_SITE_BRANCH || $IS_SECONDARY_SITE_BRANCH}
-
-permissions:
-  contents: write
+run-name: testing pulling information from a toml file
+on: push
 
 jobs:
-  docs:
+  extract-info:
     runs-on: ubuntu-latest
-    env:
-        MUST_REGENERATE_SITE: ${{github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH}}
+    name: extract info from toml file
     steps:
+      - run: |
+          echo "stuff"
+          echo "out=$(cat This thing)" >> $GITHUB_OUTPUT
+
+  use-info:
+    runs-on: ubuntu-latest
+    name: use info in toml file
+    needs: extract-info
+    steps: 
+      - run: |
+          echo "I got ${{job.extract-info.outputs.out}}""
+
+
+
+
+
+# name: quick test
+# run-name: ${{ github.actor }} is trying to test stuff.
+
+# on: [push, pull_request, workflow_dispatch]
+
+# env:
+#     BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
+#     MAIN_BRANCH: 'main' # Have this specified in some other file.
+#     SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
+#     IS_MAIN_SITE_BRANCH: ${{ toJson(github.env.BRANCH_NAME == github.env.MAIN_BRANCH)}}
+#     IS_SECONDARY_SITE_BRANCH: ${{toJson(github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH)}}
+#     MUST_REGENERATE_SITE: ${$IS_MAIN_SITE_BRANCH || $IS_SECONDARY_SITE_BRANCH}
+
+# permissions:
+#   contents: write
+
+# jobs:
+#   docs:
+#     runs-on: ubuntu-latest
+#     env:
+#         MUST_REGENERATE_SITE: ${{github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH}}
+#     steps:
         
-        - run: |
-            echo ${{github.env.BRANCH_NAME}}
-            echo "Is Push ${{github.event_name == 'push'}}"
-            echo "main ${{format('{0}',github.env.MAIN_BRANCH)}}"
-            echo "secondary $SECONDARY_BRANCH"
-            echo "is main $IS_MAIN_SITE_BRANCH"
-            echo "is seccondary ${{github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH}}"
-            echo "is must regenerate $MUST_REGENERATE_SITE"
+#         - run: |
+#             echo ${{github.env.BRANCH_NAME}}
+#             echo "Is Push ${{github.event_name == 'push'}}"
+#             echo "main ${{format('{0}',github.env.MAIN_BRANCH)}}"
+#             echo "secondary $SECONDARY_BRANCH"
+#             echo "is main $IS_MAIN_SITE_BRANCH"
+#             echo "is seccondary ${{github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH}}"
+#             echo "is must regenerate $MUST_REGENERATE_SITE"
 
