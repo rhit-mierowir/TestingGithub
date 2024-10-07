@@ -4,9 +4,11 @@ run-name: testing pulling information from a toml file
 on: push
 
 jobs:
-  extract-info:
+  extractinfo:
     runs-on: ubuntu-latest
     name: extract info from toml file
+    outputs:
+      out: ${{steps.step1.outputs.out}}
     steps:
       - run: |
           echo "stuff"
@@ -15,10 +17,10 @@ jobs:
   use-info:
     runs-on: ubuntu-latest
     name: use info in toml file
-    needs: extract-info
+    needs: extractinfo
     steps: 
       - run: |
-          echo "I got ${{jobs.extract-info.outputs.out}}"
+          echo "I got ${{needs.extractinfo.outputs.out}}"
 
 
 
