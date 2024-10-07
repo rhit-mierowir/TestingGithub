@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: |
           echo "stuff"
-          echo "out=$(cat This thing)" >> $GITHUB_OUTPUT
+          echo "out=this output stuff" >> $GITHUB_OUTPUT
 
   use-info:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
     needs: extract-info
     steps: 
       - run: |
-          echo "I got ${{job.extract-info.outputs.out}}""
+          echo "I got ${{job.extract-info.outputs.out}}"
 
 
 
