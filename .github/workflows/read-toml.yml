@@ -82,5 +82,5 @@ jobs:
       - id: get-vals
         run: |
           echo "Obtaining values from pyproject.toml script."
-          echo "output_json=$(poetry run python3 interpret_pyproject.py ${{steps.arg-creator.arguments}})" >> "$GITHUB_OUTPUT"
+          echo "output_json=$(poetry run python3 interpret_pyproject.py ${{steps.arg-creator.outputs.arguments}})" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT
