@@ -34,7 +34,8 @@ jobs:
             import os
             group("Messages")
             print("Sending a message")
-            print(os.environ["input-str"])
+            print(instr:=os.environ["input-str"])
+            set_output("out-str",instr)
             warning("There might be an issue")
             end_group()
           
@@ -42,7 +43,12 @@ jobs:
       
       - name: Verify outputs
         run: |
+          echo stdout:
           echo "${{steps.list-manipulation-script.outputs.stdout}}"
+          echo stderr:
+          echo "${{steps.list-manipulation-script.outputs.stderr}}"
+          echo custom output:
+          echo "${{steps.list-manipulation-script.outputs.out-str}}"
 
 
 
