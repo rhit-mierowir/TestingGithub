@@ -25,11 +25,44 @@ jobs:
     name: extract info from toml file form commit
     outputs:
       output_json: ${{steps.get-vals.outputs.output_json}}
+    
     steps:
+      - name: Interpret variable list into arguments
+        id: arg-creator
+        uses: jannekem/run-python-script-action@v1
+        env:
+          input-str: ${{inputs.values}}
+        with:
+          fail-on-error: true
+          util: true
+          script: |
+            import os, json
+            input_list = os.environ["input-str"]
+            print(f"Input List: {input_list}")
+
+            group("Processing Printout")
+            
+            jdecode = json.JSONDecoder()
+            input_list = list(jdecode.decode(input_list))
+
+            output_args = ""
+            arg_prefix = "--"
+            arg_suffix = " "
+
+            if (len(input_list) != 0):
+              for arg in input_list:
+                print(f"evaluating {arg}")
+                output_args += arg_prefix + arg +arg_suffix
+
+            set_output("arguments",output_args)
+            end_group()
+
+            print(f"Arguments Created: {output_args}")
+
       - name: Checkout Committed Branch
         uses: actions/checkout@v4
         with:
-          ref: ${{github.ref_name}} #select committed branch
+          ref: ${{inputs.branch}}
       
       - name: Install pipx
         run: |
@@ -49,5 +82,5 @@ jobs:
       - id: get-vals
         run: |
           echo "Obtaining values from pyproject.toml script."
-          echo "output_json=$(poetry run python3 interpret_pyproject.py --python_versions --homepage)" >> "$GITHUB_OUTPUT"
+          echo "output_json=$(poetry run python3 interpret_pyproject.py ${{steps.arg-creator.arguments}})" >> "$GITHUB_OUTPUT"
           echo $GITHUB_OUTPUT

@@ -4,66 +4,82 @@ run-name: testing pulling information from a toml file
 on: push
 
 jobs:
-  test-join-arrays:
+  readTOML:
+    uses: rhit-mierowir/TestingGithub/.github/workflows/read-toml.yml@main
+    with:
+      branch: ${{github.ref_name}} #select committed branch
+      values: "[\"python_versions\",\"homepage\",\"repository\"]"
+  
+  evaluate-output:
     runs-on: ubuntu-latest
-    name: investigate how I can manipulate arrays
-    
+    name: verify results
+    needs: readTOML
     steps:
-      - name: Try run on empty list
+      - name: 'Verify results with echo'
         run: |
-          echo "--${{join(fromJson('[]'),' --')}}"
-          echo "--${{join(fromJson('["thing"]'),' --')}}"
-          echo "--${{join(fromJson('["thing","thing2"]'),' --')}}"
-          echo "--${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
+          echo ${{needs.readTOML.outputs.toml_values}}
 
 
-      - name: Detect empty list
-        run: |
-          echo "${{fromJson('[]')[0] == null}}"
-          echo "${{fromJson('["thing"]')[0] == null}}"
-          echo "${{fromJson('["thing","thing2"]')[0] == null}}"
-          echo "${{fromJson('["thing","thing2","thing3"]')[0] == null}}"
+  # test-join-arrays:
+  #   runs-on: ubuntu-latest
+  #   name: investigate how I can manipulate arrays
+    
+  #   steps:
+  #     - name: Try run on empty list
+  #       run: |
+  #         echo "--${{join(fromJson('[]'),' --')}}"
+  #         echo "--${{join(fromJson('["thing"]'),' --')}}"
+  #         echo "--${{join(fromJson('["thing","thing2"]'),' --')}}"
+  #         echo "--${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
+
+
+  #     - name: Detect empty list
+  #       run: |
+  #         echo "${{fromJson('[]')[0] == null}}"
+  #         echo "${{fromJson('["thing"]')[0] == null}}"
+  #         echo "${{fromJson('["thing","thing2"]')[0] == null}}"
+  #         echo "${{fromJson('["thing","thing2","thing3"]')[0] == null}}"
       
-      - name: Try out python script
-        id: list-manipulation-script
-        uses: jannekem/run-python-script-action@v1
-        env:
-          input-str: '["thing","thing2","thing3"]'
-        with:
-          fail-on-error: true
-          util: true
-          script: |
-            import os, json
-            input_list = os.environ["input-str"]
-            print(f"Input List: {input_list}")
+  #     - name: Try out python script
+  #       id: list-manipulation-script
+  #       uses: jannekem/run-python-script-action@v1
+  #       env:
+  #         input-str: '["thing","thing2","thing3"]'
+  #       with:
+  #         fail-on-error: true
+  #         util: true
+  #         script: |
+  #           import os, json
+  #           input_list = os.environ["input-str"]
+  #           print(f"Input List: {input_list}")
 
-            group("Processing Printout")
+  #           group("Processing Printout")
             
-            jdecode = json.JSONDecoder()
-            input_list = list(jdecode.decode(input_list))
+  #           jdecode = json.JSONDecoder()
+  #           input_list = list(jdecode.decode(input_list))
 
-            output_args = ""
-            arg_prefix = "--"
-            arg_suffix = " "
+  #           output_args = ""
+  #           arg_prefix = "--"
+  #           arg_suffix = " "
 
-            if (len(input_list) != 0):
-              for arg in input_list:
-                print(f"evaluating {arg}")
-                output_args += arg_prefix + arg +arg_suffix
+  #           if (len(input_list) != 0):
+  #             for arg in input_list:
+  #               print(f"evaluating {arg}")
+  #               output_args += arg_prefix + arg +arg_suffix
 
-            set_output("arguments",output_args)
-            end_group()
+  #           set_output("arguments",output_args)
+  #           end_group()
 
-            print(f"Arguments Created: {output_args}")  
+  #           print(f"Arguments Created: {output_args}")  
       
-      - name: Verify outputs
-        run: |
-          echo stdout:
-          echo "${{steps.list-manipulation-script.outputs.stdout}}"
-          echo stderr:
-          echo "${{steps.list-manipulation-script.outputs.stderr}}"
-          echo custom output:
-          echo "${{steps.list-manipulation-script.outputs.out-str}}"
+  #     - name: Verify outputs
+  #       run: |
+  #         echo stdout:
+  #         echo "${{steps.list-manipulation-script.outputs.stdout}}"
+  #         echo stderr:
+  #         echo "${{steps.list-manipulation-script.outputs.stderr}}"
+  #         echo custom output:
+  #         echo "${{steps.list-manipulation-script.outputs.out-str}}"
 
 
 
