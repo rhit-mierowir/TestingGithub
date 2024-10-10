@@ -31,9 +31,10 @@ jobs:
           input-str: '["thing","thing2","thing3"]'
         with:
           script: |
+            import os
             group("Messages")
             print("Sending a message")
-            print("$input-str")
+            print(os.environ["input-str"])
             warning("There might be an issue")
             end_group()
           
