@@ -30,16 +30,31 @@ jobs:
         env:
           input-str: '["thing","thing2","thing3"]'
         with:
+          fail-on-error: false
+          util: true
           script: |
-            import os
-            group("Messages")
-            print("Sending a message")
-            print(instr:=os.environ["input-str"])
-            set_output("out-str",instr)
-            warning("There might be an issue")
-            end_group()
-          
+            import os, json
+            input_list = os.environ["input-str"]
+            print(f"Input List: {input_list}")
+
+            group("Processing Printout")
             
+            jdecode = json.JSONDecoder()
+            input_list = list(json.decode(input_list))
+
+            output_args = ""
+            arg_prefix = "--"
+            arg_suffix = " "
+
+            if (len(input_list) != 0):
+              for arg in input_list:
+                print(f"evaluating {arg}")
+                output_args += arg_prefix + arg +arg_suffix
+
+            set_output("arguments",output_args)
+            end_group()
+
+            print(f"Arguments Created: {output_args}")  
       
       - name: Verify outputs
         run: |
