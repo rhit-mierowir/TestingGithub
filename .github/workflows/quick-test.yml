@@ -42,7 +42,7 @@ jobs:
     needs: extractinfo
     strategy:
       matrix:
-        multstr: ${{fromJson(needs.extractinfo.outputs.python_versions)["python_versions"]}}
+        multstr: ${{fromJson(needs.extractinfo.outputs.python_versions)['python_versions']}}
     steps: 
       - run: |
           echo "I got ${{matrix.multstr}}"
