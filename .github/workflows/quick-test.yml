@@ -17,12 +17,31 @@ jobs:
           echo "--${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
 
 
-      - name: Try run on empty list
+      - name: Detect empty list
         run: |
           echo "${{fromJson('[]')[0] == null}}"
           echo "${{fromJson('["thing"]')[0] == null}}"
           echo "${{fromJson('["thing","thing2"]')[0] == null}}"
           echo "${{fromJson('["thing","thing2","thing3"]')[0] == null}}"
+      
+      - name: Try out python script
+        id: list-manipulation-script
+        uses: jannekem/run-python-script-action@v1
+        env:
+          input-str: '["thing","thing2","thing3"]'
+        with:
+          script: |
+            add_path("/usr/local/test")
+            set_env("HELLO", "WORLD")
+            group("Messages")
+            print("Sending a message")
+            #get_input("input-str")
+            warning("There might be an issue")
+            end_group()
+      
+      - name: Verify outputs
+        run: |
+          echo ${{steps.list-manipulation-script.outputs.stdout}}
 
 
 
