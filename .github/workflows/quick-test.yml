@@ -11,12 +11,18 @@ jobs:
     steps:
       - name: Try run on empty list
         run: |
-          echo "${{join(fromJson('[]'),' --')}}"
-          echo "${{join(fromJson('["thing"]'),' --')}}"
-          echo "${{join(fromJson('["thing","thing2"]'),' --')}}"
-          echo "${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
+          echo "--${{join(fromJson('[]'),' --')}}"
+          echo "--${{join(fromJson('["thing"]'),' --')}}"
+          echo "--${{join(fromJson('["thing","thing2"]'),' --')}}"
+          echo "--${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
 
 
+      - name: Try run on empty list
+        run: |
+          echo "${{fromJson('[]')[0]}}"
+          echo "${{fromJson('["thing"]')[0]}}"
+          echo "${{fromJson('["thing","thing2"]')[0]}}"
+          echo "${{fromJson('["thing","thing2","thing3"]')[0]}}"
 
 
 
