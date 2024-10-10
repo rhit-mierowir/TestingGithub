@@ -30,7 +30,7 @@ jobs:
         env:
           input-str: '["thing","thing2","thing3"]'
         with:
-          fail-on-error: false
+          fail-on-error: true
           util: true
           script: |
             import os, json
@@ -40,7 +40,7 @@ jobs:
             group("Processing Printout")
             
             jdecode = json.JSONDecoder()
-            input_list = list(json.decode(input_list))
+            input_list = list(jdecode.decode(input_list))
 
             output_args = ""
             arg_prefix = "--"
