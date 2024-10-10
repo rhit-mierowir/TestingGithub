@@ -19,10 +19,10 @@ jobs:
 
       - name: Try run on empty list
         run: |
-          echo "${{fromJson('[]')[0]}}"
-          echo "${{fromJson('["thing"]')[0]}}"
-          echo "${{fromJson('["thing","thing2"]')[0]}}"
-          echo "${{fromJson('["thing","thing2","thing3"]')[0]}}"
+          echo "${{fromJson('[]')[0] == null}}"
+          echo "${{fromJson('["thing"]')[0] == null}}"
+          echo "${{fromJson('["thing","thing2"]')[0] == null}}"
+          echo "${{fromJson('["thing","thing2","thing3"]')[0] == null}}"
 
 
 
