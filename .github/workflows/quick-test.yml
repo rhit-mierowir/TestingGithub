@@ -4,48 +4,64 @@ run-name: testing pulling information from a toml file
 on: push
 
 jobs:
-  extractinfo:
+  test-join-arrays:
     runs-on: ubuntu-latest
-    name: extract info from toml file form commit
-    outputs:
-      python_versions: ${{steps.get-vals.outputs.python_versions}}
+    name: investigate how I can manipulate arrays
+    
     steps:
-      - name: Checkout Committed Branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{github.ref_name}} #select committed branch
+      - name: Try run on empty list
+        run: |
+          echo "${{join(fromJson('[]'),' --')}}"
+          echo "${{join(fromJson('["thing"]'),' --')}}"
+          echo "${{join(fromJson('["thing","thing2"]'),' --')}}"
+          echo "${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
+
+
+
+
+
+  # extractinfo:
+  #   runs-on: ubuntu-latest
+  #   name: extract info from toml file form commit
+  #   outputs:
+  #     python_versions: ${{steps.get-vals.outputs.python_versions}}
+  #   steps:
+  #     - name: Checkout Committed Branch
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: ${{github.ref_name}} #select committed branch
       
-      - name: Install pipx
-        run: |
-          sudo apt update
-          sudo apt install pipx
-          pipx ensurepath 
-          sudo pipx ensurepath
+  #     - name: Install pipx
+  #       run: |
+  #         sudo apt update
+  #         sudo apt install pipx
+  #         pipx ensurepath 
+  #         sudo pipx ensurepath
 
-      - name: Install sphinx
-        run : |
-          pipx install poetry
+  #     - name: Install sphinx
+  #       run : |
+  #         pipx install poetry
 
-      - name: Setup to collect variables
-        run: |
-          poetry install  --with gh_read_pyproject
+  #     - name: Setup to collect variables
+  #       run: |
+  #         poetry install  --with gh_read_pyproject
 
-      - id: get-vals
-        run: |
-          echo "Obtaining values from pyproject.toml script."
-          echo "python_versions=$(poetry run python3 interpret_pyproject.py --python_versions --homepage)" >> "$GITHUB_OUTPUT"
-          echo $GITHUB_OUTPUT
+  #     - id: get-vals
+  #       run: |
+  #         echo "Obtaining values from pyproject.toml script."
+  #         echo "python_versions=$(poetry run python3 interpret_pyproject.py --python_versions --homepage)" >> "$GITHUB_OUTPUT"
+  #         echo $GITHUB_OUTPUT
 
-  use-info:
-    runs-on: ubuntu-latest
-    name: use info in toml file
-    needs: extractinfo
-    strategy:
-      matrix:
-        multstr: ${{fromJson(needs.extractinfo.outputs.python_versions)['python_versions']}}
-    steps: 
-      - run: |
-          echo "I got ${{matrix.multstr}}"
+  # use-info:
+  #   runs-on: ubuntu-latest
+  #   name: use info in toml file
+  #   needs: extractinfo
+  #   strategy:
+  #     matrix:
+  #       multstr: ${{fromJson(needs.extractinfo.outputs.python_versions)['python_versions']}}
+  #   steps: 
+  #     - run: |
+  #         echo "I got ${{matrix.multstr}}"
 
 
 
