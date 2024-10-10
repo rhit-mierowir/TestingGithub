@@ -31,17 +31,18 @@ jobs:
           input-str: '["thing","thing2","thing3"]'
         with:
           script: |
-            add_path("/usr/local/test")
-            set_env("HELLO", "WORLD")
+            
             group("Messages")
             print("Sending a message")
-            print(get_input("input-str"))
+            print(get_input("script"))
             warning("There might be an issue")
             end_group()
+          
+            
       
       - name: Verify outputs
         run: |
-          echo "${{steps.list-manipulation-script.outputs.stdout}}""
+          echo "${{steps.list-manipulation-script.outputs.stdout}}"
 
 
 
