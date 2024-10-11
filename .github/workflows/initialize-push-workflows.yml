@@ -80,7 +80,7 @@ jobs:
         # X - xpassed
         # p - passed
         # P - passed with output
-        display-options: fEXxsp
+        display-options: fEXxs
 
         # (Optional) Fail the workflow if no JUnit XML was found.
         fail-on-empty: true
