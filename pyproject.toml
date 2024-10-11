@@ -25,9 +25,9 @@ pytest-testing-groups = ["immediate or short", "long"]
 #     E - error         p - passed
 #     s - skipped       P - passed with output
 #     x - xfailed
-test-results-display-selector = "EXxs"
+test-results-display-selector = "fEXxs"
 # Whether or not you see summary table in test results
-test-results-display-summary = false
+test-results-display-summary = true
 
 
 [tool.pytest.ini_options]
