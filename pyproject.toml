@@ -19,7 +19,7 @@ theme = "sphinx_nefertiti"
 # these are values that need verification in testing
 python-versions = ["3.8","3.9","3.10","3.11","3.12"]
 # These are the marker groups we are testing together, separate more for greater concurrency
-pytest-testing-groups = ["immediate and short", "long"]
+pytest-testing-groups = ["immediate or short", "long"]
 
 
 [tool.pytest.ini_options]
