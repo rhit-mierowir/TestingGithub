@@ -51,7 +51,7 @@ jobs:
     
     - name: Run Tests in Python ${{matrix.python-version}} with masks ${{matrix.pytest-testing-group}}
       run: |
-        poetry run pytest -m \"${{matrix.pytest-testing-group}}\" --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+        poetry run pytest -m "${{matrix.pytest-testing-group}}" --junitxml=junit/test-results-${{ matrix.python-version }}.xml
 
     - name: Upload pytest test results
       uses: actions/upload-artifact@v4
