@@ -17,7 +17,7 @@ theme = "sphinx_nefertiti"
 
 [tests.workflows]
 # these are values that need verification in testing
-python-versions = ["3.8","3.9","3.10","3.11","3.12"]
+python-versions = ["3.10","3.11","3.12","3.13"]
 # These are the marker groups we are testing together, separate more for greater concurrency
 pytest-testing-groups = ["immediate or short", "long"]
 
