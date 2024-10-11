@@ -63,6 +63,7 @@ jobs:
 
     - name: View Test results
       uses: pmeier/pytest-results-action@main
+      if: ${{ always() }}
       with:
         # A list of JUnit XML files, directories containing the former, and wildcard
         # patterns to process.
