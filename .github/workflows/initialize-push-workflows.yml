@@ -72,8 +72,14 @@ jobs:
         summary: true
 
         # (Optional) Select which results should be included in the report.
-        # Follows the same syntax as `pytest -r`
-        display-options: fEX
+        # f - failed
+        # E - error
+        # s - skipped
+        # x - xfailed
+        # X - xpassed
+        # p - passed
+        # P - passed with output
+        display-options: fEXxsp
 
         # (Optional) Fail the workflow if no JUnit XML was found.
         fail-on-empty: true
