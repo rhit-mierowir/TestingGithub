@@ -23,7 +23,6 @@ jobs:
       matrix:
         python-version: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['python_versions']}}
         pytest-testing-group: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['pytest_testing_groups']}}
-        reporter: ['dart-json','dotnet-nunit','dotnet-trx','flutter-json',java-junit,jest-junit,mocha-json,]
         run-on: ['ubuntu-latest']
     
     runs-on: ${{matrix.run-on}}
@@ -80,6 +79,6 @@ jobs:
         fail-on-empty: true
 
         # (Optional) Title of the test results section in the workflow summary
-        title: Test Results for Python${{matrix.python-version}} with masks ${{matrix.pytest-testing-group}}
+        title: Results For python${{matrix.python-version}} masks "${{matrix.pytest-testing-group}}"
 
     
