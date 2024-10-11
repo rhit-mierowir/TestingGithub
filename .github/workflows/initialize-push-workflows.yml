@@ -13,7 +13,9 @@ jobs:
     uses: rhit-mierowir/TestingGithub/.github/workflows/read-toml.yml@main
     with:
       branch: ${{github.ref_name}} #select committed branch
-      values: "[\"python_versions\",\"homepage\",\"repository\",\"pytest_testing_groups\",\"test_results_display_selector\"]"
+      values: "[\"python_versions\",\"homepage\",\"repository\",
+        \"pytest_testing_groups\",\"test_results_display_selector\",
+        \"test_results_display_summary\"]"
 
   RunTests:
     needs: PyprojectTOML
