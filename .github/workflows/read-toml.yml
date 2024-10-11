@@ -65,6 +65,7 @@ jobs:
           ref: ${{inputs.branch}}
       
       - name: Install pipx
+        if: false
         run: |
           sudo apt update
           sudo apt install pipx
@@ -73,7 +74,7 @@ jobs:
 
       - name: Install sphinx
         run : |
-          pipx install poetry
+          pip install poetry
 
       - name: Setup to collect variables
         run: |
