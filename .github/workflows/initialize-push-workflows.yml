@@ -1,0 +1,64 @@
+name: Start Push Workflows
+
+on:
+  push:
+    branches: ["main","develop"]
+
+permissions:
+  contents: read
+
+jobs:
+
+  PyprojectTOML:
+    uses: rhit-mierowir/TestingGithub/.github/workflows/read-toml.yml@main
+    with:
+      branch: ${{github.ref_name}} #select committed branch
+      values: "[\"python_versions\",\"homepage\",\"repository\",\"pytest_testing_groups\"]"
+
+  RunTests:
+    needs: PyprojectTOML
+
+    strategy:
+      fail-fast: false #this means that all matrix tests don't stop as soon as first on fails
+      matrix:
+        python-version: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['python_versions']}}
+        pytest-testing-group: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['pytest_testing_groups']}}
+        run-on: ['ubuntu-latest']
+    
+    runs-on: ${{matrix.run-on}}
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{matrix.python-version}}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{matrix.python-version}}
+    - name: Install pipx
+      run: |
+        sudo apt update
+        sudo apt install pipx
+        pipx ensurepath 
+        sudo pipx ensurepath
+          
+    - name: Install poetry
+      run: |
+        pipx install poetry
+        poetry config virtualenvs.create false --local
+      
+    - name: Install Testing Dependencies
+      run: |
+        poetry install --with gh_tests
+    
+    - name: Run Tests in Python ${{matrix.python-version}} with masks ${{matrix.pytest-testing-group}}
+      run: |
+        pytest -m "${{matrix.pytest-testing-group}}"
+
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-results-${{strategy.job-index}}of${{strategy.job-total}}-python${{ matrix.python-version }}
+        path: junit/test-results-job${{strategy.job-index}}-python${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
+
+    

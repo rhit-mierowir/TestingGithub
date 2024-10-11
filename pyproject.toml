@@ -11,6 +11,37 @@ theme = "sphinx_nefertiti"
 #           'pydata_sphinx_theme'
 
 
+# Config For testing in github workflows
+[tests]
+# all values used when testing
+
+[tests.workflows]
+# these are values that need verification in testing
+python-versions = ["3.8","3.9","3.10","3.11","3.12"]
+# These are the marker groups we are testing together, separate more for greater concurrency
+pytest-testing-groups = ["immediate and short", "long"]
+
+
+[tool.pytest.ini_options]
+# This line is automatically appended on any "pytest" command run
+addopts = "--strict-markers"
+# The markers are specified to the left of the colons, and descriptions to the right.
+# These descriptions can be viewed by typing "pytest --markers"
+markers = [
+    "immediate: For tests that are almost immediate, i.e. run < 10 sec        Group: test_length (default)",
+    "short:     For tests that are relatively short, i.e. run < 60 sec        Group: test_length",
+    "long:      For tests that run over a long time, i.e. run > 1 min         Group: test_length",
+    "all:       Automatically applied to all tests                            Group: all_tests (default)",
+]
+
+[tool.pytest.marker_groups]
+# These are the test groups that all tests must be a part of, so if one test is not marked, the default mark will be applied.
+# Here the name of the marker group is the variable assigned, and the markers in it are the members of the group
+# The marker at index 0 is the default
+# the logic for this is in conftest.py
+test_length = ["immediate", "short","long"]
+all_tests = ["all"]
+
 
 # Config File for Poetry:
 # More Info: https://python-poetry.org/docs/pyproject/
@@ -48,17 +79,6 @@ python = "^3.10"
 toml = "^0.10.2"
 serial = "^0.0.97"
 
-#docs group is all that's needed to compile sphinx.
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-Sphinx = "^7.2.6"
-sphinx-nefertiti = "^0.3.2"
-sphinx-book-theme = "^1.1.2"
-sphinx-wagtail-theme = "^6.3.0"
-pydata-sphinx-theme = "^0.15.2"
-
 #dev group for developers updating the code
 [tool.poetry.group.dev]
 optional = true
@@ -84,6 +104,7 @@ optional = true
 
 [tool.poetry.group.gh_tests.dependencies]
 pytest = "^8.2.0"
+toml = "^0.10.2"
 
 #gh_tests group for building documentation on github.
 [tool.poetry.group.gh_docs]
@@ -106,11 +127,5 @@ pytest = "^8.2.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tests]
-# all values used when testing
-
-[tests.workflows]
-# these are values that need verification in testing
-python-versions = ["3.8","3.9","3.10","3.11","3.12"]
 
 

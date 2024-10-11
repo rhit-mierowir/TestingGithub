@@ -40,6 +40,7 @@ create_value_identifier(parser,"python_versions","The python versions we test, a
 create_value_identifier(parser,"homepage","The homepage URL for the repository.")
 create_value_identifier(parser,"repository","The github repository URL.")
 create_value_identifier(parser,"documentation","The documentation URL for the repository.")
+create_value_identifier(parser,"pytest_testing_groups","The pytest marker groups that should be run concurrently for speed reasons.")
 
 args = parser.parse_args()
 output = {}
@@ -65,6 +66,11 @@ if args.documentation:
     #URL of repository documentation
     output["documentation"] = \
         py_project_data["tool"]["poetry"]["documentation"]
+
+if args.pytest_testing_groups:
+    # The groups of pytest
+    output["pytest_testing_groups"] = \
+        py_project_data["tests"]["workflows"]["pytest-testing-groups"]
 
 json_encoder = json.JSONEncoder()
 
