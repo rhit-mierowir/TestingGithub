@@ -61,13 +61,25 @@ jobs:
         path: junit/test-results-${{ matrix.python-version }}.xml
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
-    
+
     - name: View Test results
-      uses: dorny/test-reporter@v1
-      if: ${{ always() }}
+      uses: pmeier/pytest-results-action@main
       with:
-        name: Test Results for Python${{matrix.python-version}} with masks ${{matrix.pytest-testing-group}}
+        # A list of JUnit XML files, directories containing the former, and wildcard
+        # patterns to process.
         path: junit/test-results-${{ matrix.python-version }}.xml
-        reporter: ${{matrix.reporter}}
+
+        # (Optional) Add a summary of the results at the top of the report
+        summary: true
+
+        # (Optional) Select which results should be included in the report.
+        # Follows the same syntax as `pytest -r`
+        display-options: fEX
+
+        # (Optional) Fail the workflow if no JUnit XML was found.
+        fail-on-empty: true
+
+        # (Optional) Title of the test results section in the workflow summary
+        title: Test Results for Python${{matrix.python-version}} with masks ${{matrix.pytest-testing-group}}
 
     
