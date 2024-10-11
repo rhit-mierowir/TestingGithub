@@ -23,6 +23,7 @@ jobs:
       matrix:
         python-version: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['python_versions']}}
         pytest-testing-group: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['pytest_testing_groups']}}
+        #reporter: ['dart-json','dotnet-nunit','dotnet-trx','flutter-json',java-junit,jest-junit,mocha-json,]
         run-on: ['ubuntu-latest']
     
     runs-on: ${{matrix.run-on}}
@@ -60,5 +61,13 @@ jobs:
         path: junit/test-results-${{ matrix.python-version }}.xml
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
+    
+    - name: View Test results
+      uses: dorny/test-reporter@v1
+      if: ${{ always() }}
+      with:
+        name: Test Results for Python${{matrix.python-version}} with masks ${{matrix.pytest-testing-group}}
+        path: junit/test-results-${{ matrix.python-version }}.xml
+        reporter: jest-junit
 
     
