@@ -20,6 +20,14 @@ theme = "sphinx_nefertiti"
 python-versions = ["3.10","3.11","3.12","3.13"]
 # These are the marker groups we are testing together, separate more for greater concurrency
 pytest-testing-groups = ["immediate or short", "long"]
+# Test Results to Display:
+#     f - failed        X - xpassed
+#     E - error         p - passed
+#     s - skipped       P - passed with output
+#     x - xfailed
+test-results-display-selector = "fEXxs"
+# Whether or not you see summary table in test results
+test-results-display-summary = true
 
 
 [tool.pytest.ini_options]

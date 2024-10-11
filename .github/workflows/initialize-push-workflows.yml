@@ -13,7 +13,7 @@ jobs:
     uses: rhit-mierowir/TestingGithub/.github/workflows/read-toml.yml@main
     with:
       branch: ${{github.ref_name}} #select committed branch
-      values: "[\"python_versions\",\"homepage\",\"repository\",\"pytest_testing_groups\"]"
+      values: "[\"python_versions\",\"homepage\",\"repository\",\"pytest_testing_groups\",\"test_results_display_selector\"]"
 
   RunTests:
     needs: PyprojectTOML
@@ -70,22 +70,19 @@ jobs:
         path: junit/test-results-${{ matrix.python-version }}.xml
 
         # (Optional) Add a summary of the results at the top of the report
-        summary: true
+        summary: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['test_results_display_summary']}}
 
         # (Optional) Select which results should be included in the report.
-        # f - failed
-        # E - error
-        # s - skipped
-        # x - xfailed
-        # X - xpassed
-        # p - passed
-        # P - passed with output
-        display-options: fEXxs
+        #   f - failed        X - xpassed
+        #   E - error         p - passed
+        #   s - skipped       P - passed with output
+        #   x - xfailed
+        display-options: ${{fromJson(needs.PyprojectTOML.outputs.toml_values)['test_results_display_selector']}}
 
         # (Optional) Fail the workflow if no JUnit XML was found.
         fail-on-empty: true
 
         # (Optional) Title of the test results section in the workflow summary
-        title: Results For python${{matrix.python-version}} masks "${{matrix.pytest-testing-group}}"
+        title: Results For python${{matrix.python-version}} markers "${{matrix.pytest-testing-group}}"
 
     

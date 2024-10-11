@@ -41,6 +41,8 @@ create_value_identifier(parser,"homepage","The homepage URL for the repository."
 create_value_identifier(parser,"repository","The github repository URL.")
 create_value_identifier(parser,"documentation","The documentation URL for the repository.")
 create_value_identifier(parser,"pytest_testing_groups","The pytest marker groups that should be run concurrently for speed reasons.")
+create_value_identifier(parser,"test_results_display_selector","The types of results to see in Github Test Results (pytest -r format)")
+create_value_identifier(parser,"test_results_display_summary","Whether the summary table will be present in Github Test Results")
 
 args = parser.parse_args()
 output = {}
@@ -68,9 +70,23 @@ if args.documentation:
         py_project_data["tool"]["poetry"]["documentation"]
 
 if args.pytest_testing_groups:
-    # The groups of pytest
+    # The groups of pytest markers to be evaluated separately
     output["pytest_testing_groups"] = \
         py_project_data["tests"]["workflows"]["pytest-testing-groups"]
+
+if args.test_results_display_selector:
+    #The results specifically reported in the github reoprt, as with "pytest -r"
+    #     f - failed        X - xpassed
+    #     E - error         p - passed
+    #     s - skipped       P - passed with output
+    #     x - xfailed
+    output["test_results_display_selector"] = \
+        py_project_data["tests"]["workflows"]["test-results-display-selector"]
+
+if args.test_results_display_summary:
+    #Whether the summary table will be present in Github Test Results (boolean)
+    output["test_results_display_summary"] = \
+        py_project_data["tests"]["workflows"]['test-results-display-summary']
 
 json_encoder = json.JSONEncoder()
 
