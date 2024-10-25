@@ -54,7 +54,13 @@ print("------------- End Testing Submodule ---------------")
 
 from inspect import getmembers, ismodule, getmodule
 import types
-from src import *
+import src
+#import src.af.a
+from src.af import *
+from src.af.bf import *
+# https://julienharbulot.com/python-dynamical-import.html
+# Dynamically import all classes in python submodule
+ 
 
 def get_all_classes():
     objects_to_search = globals().values()
