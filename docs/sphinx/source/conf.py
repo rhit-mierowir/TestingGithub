@@ -137,7 +137,8 @@ autosectionlabel_prefix_document = True # Can link to 'Section Title' titles usi
 # -- Intersphinx Configuration -----------------------------------------------
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
-                       'sphinx': ('https://www.sphinx-doc.org/en/master/', None)}
+                       'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
+                      }
 
 
 # -- Options for napoleon extension ------------------------------------------
