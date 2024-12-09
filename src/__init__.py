@@ -30,9 +30,9 @@
 #             results.update(import_submodules(full_name))
 #     return results
 
-__all__ = ["I will get rewritten"]
+#__all__ = ["I will get rewritten"]
 # Don't modify the line above, or this line!
-import automodinit
-automodinit.automodinit(__name__, __file__, globals())
-del automodinit
+#import automodinit
+#automodinit.automodinit(__name__, __file__, globals())
+#del automodinit
 # Anything else you want can go after here, it won't get modified.
