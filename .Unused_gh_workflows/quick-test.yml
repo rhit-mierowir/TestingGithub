@@ -1,0 +1,164 @@
+
+name: quick test
+run-name: testing pulling information from a toml file
+on: push
+
+jobs:
+  readTOML:
+    uses: rhit-mierowir/TestingGithub/.github/workflows/read-toml.yml@main
+    with:
+      branch: ${{github.ref_name}} #select committed branch
+      values: "[\"python_versions\",\"homepage\",\"repository\"]"
+  
+  evaluate-output:
+    runs-on: ubuntu-latest
+    name: verify results
+    needs: readTOML
+    steps:
+      - name: 'Verify results with echo'
+        run: |
+          echo ${{needs.readTOML.outputs.toml_values}}
+
+
+  # test-join-arrays:
+  #   runs-on: ubuntu-latest
+  #   name: investigate how I can manipulate arrays
+    
+  #   steps:
+  #     - name: Try run on empty list
+  #       run: |
+  #         echo "--${{join(fromJson('[]'),' --')}}"
+  #         echo "--${{join(fromJson('["thing"]'),' --')}}"
+  #         echo "--${{join(fromJson('["thing","thing2"]'),' --')}}"
+  #         echo "--${{join(fromJson('["thing","thing2","thing3"]'),' --')}}"
+
+
+  #     - name: Detect empty list
+  #       run: |
+  #         echo "${{fromJson('[]')[0] == null}}"
+  #         echo "${{fromJson('["thing"]')[0] == null}}"
+  #         echo "${{fromJson('["thing","thing2"]')[0] == null}}"
+  #         echo "${{fromJson('["thing","thing2","thing3"]')[0] == null}}"
+      
+  #     - name: Try out python script
+  #       id: list-manipulation-script
+  #       uses: jannekem/run-python-script-action@v1
+  #       env:
+  #         input-str: '["thing","thing2","thing3"]'
+  #       with:
+  #         fail-on-error: true
+  #         util: true
+  #         script: |
+  #           import os, json
+  #           input_list = os.environ["input-str"]
+  #           print(f"Input List: {input_list}")
+
+  #           group("Processing Printout")
+            
+  #           jdecode = json.JSONDecoder()
+  #           input_list = list(jdecode.decode(input_list))
+
+  #           output_args = ""
+  #           arg_prefix = "--"
+  #           arg_suffix = " "
+
+  #           if (len(input_list) != 0):
+  #             for arg in input_list:
+  #               print(f"evaluating {arg}")
+  #               output_args += arg_prefix + arg +arg_suffix
+
+  #           set_output("arguments",output_args)
+  #           end_group()
+
+  #           print(f"Arguments Created: {output_args}")  
+      
+  #     - name: Verify outputs
+  #       run: |
+  #         echo stdout:
+  #         echo "${{steps.list-manipulation-script.outputs.stdout}}"
+  #         echo stderr:
+  #         echo "${{steps.list-manipulation-script.outputs.stderr}}"
+  #         echo custom output:
+  #         echo "${{steps.list-manipulation-script.outputs.out-str}}"
+
+
+
+  # extractinfo:
+  #   runs-on: ubuntu-latest
+  #   name: extract info from toml file form commit
+  #   outputs:
+  #     python_versions: ${{steps.get-vals.outputs.python_versions}}
+  #   steps:
+  #     - name: Checkout Committed Branch
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: ${{github.ref_name}} #select committed branch
+      
+  #     - name: Install pipx
+  #       run: |
+  #         sudo apt update
+  #         sudo apt install pipx
+  #         pipx ensurepath 
+  #         sudo pipx ensurepath
+
+  #     - name: Install sphinx
+  #       run : |
+  #         pipx install poetry
+
+  #     - name: Setup to collect variables
+  #       run: |
+  #         poetry install  --with gh_read_pyproject
+
+  #     - id: get-vals
+  #       run: |
+  #         echo "Obtaining values from pyproject.toml script."
+  #         echo "python_versions=$(poetry run python3 interpret_pyproject.py --python_versions --homepage)" >> "$GITHUB_OUTPUT"
+  #         echo $GITHUB_OUTPUT
+
+  # use-info:
+  #   runs-on: ubuntu-latest
+  #   name: use info in toml file
+  #   needs: extractinfo
+  #   strategy:
+  #     matrix:
+  #       multstr: ${{fromJson(needs.extractinfo.outputs.python_versions)['python_versions']}}
+  #   steps: 
+  #     - run: |
+  #         echo "I got ${{matrix.multstr}}"
+
+
+
+
+
+# name: quick test
+# run-name: ${{ github.actor }} is trying to test stuff.
+
+# on: [push, pull_request, workflow_dispatch]
+
+# env:
+#     BRANCH_NAME: ${{ github.head_ref || github.ref_name}}
+#     MAIN_BRANCH: 'main' # Have this specified in some other file.
+#     SECONDARY_BRANCH: 'develop' # Have this specified in some other file.
+#     IS_MAIN_SITE_BRANCH: ${{ toJson(github.env.BRANCH_NAME == github.env.MAIN_BRANCH)}}
+#     IS_SECONDARY_SITE_BRANCH: ${{toJson(github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH)}}
+#     MUST_REGENERATE_SITE: ${$IS_MAIN_SITE_BRANCH || $IS_SECONDARY_SITE_BRANCH}
+
+# permissions:
+#   contents: write
+
+# jobs:
+#   docs:
+#     runs-on: ubuntu-latest
+#     env:
+#         MUST_REGENERATE_SITE: ${{github.env.IS_MAIN_SITE_BRANCH || github.env.IS_SECONDARY_SITE_BRANCH}}
+#     steps:
+        
+#         - run: |
+#             echo ${{github.env.BRANCH_NAME}}
+#             echo "Is Push ${{github.event_name == 'push'}}"
+#             echo "main ${{format('{0}',github.env.MAIN_BRANCH)}}"
+#             echo "secondary $SECONDARY_BRANCH"
+#             echo "is main $IS_MAIN_SITE_BRANCH"
+#             echo "is seccondary ${{github.env.BRANCH_NAME == github.env.SECONDARY_BRANCH}}"
+#             echo "is must regenerate $MUST_REGENERATE_SITE"
+

@@ -5,11 +5,54 @@ copyright_message = '2024, rhit-mierowir'
 author = 'rhit-mierowir'
 
 theme = "sphinx_nefertiti"
+dev_theme = "sphinx_book_theme"
 #OPTIONS:   'sphinx_book_theme'
 #           'sphinx_wagtail_theme'
 #           'sphinx_nefertiti'      <== Default/Suggested
 #           'pydata_sphinx_theme'
 
+logo = "https://images.unsplash.com/photo-1526392269816-39d8ed656494?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+dev_logo = "https://images.unsplash.com/photo-1631376604263-5d803038b389?q=80&w=1973&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+test_fail_logo = "https://images.unsplash.com/photo-1623018035782-b269248df916?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
+# Config For testing in github workflows
+[tests]
+# all values used when testing
+
+[tests.workflows]
+# these are values that need verification in testing
+python-versions = ["3.10","3.11","3.12","3.13"]
+# These are the marker groups we are testing together, separate more for greater concurrency
+pytest-testing-groups = ["immediate or short", "long"]
+# Test Results to Display:
+#     f - failed        X - xpassed
+#     E - error         p - passed
+#     s - skipped       P - passed with output
+#     x - xfailed
+test-results-display-selector = "fEXxs"
+# Whether or not you see summary table in test results
+test-results-display-summary = true
+
+
+[tool.pytest.ini_options]
+# This line is automatically appended on any "pytest" command run
+addopts = "--strict-markers"
+# The markers are specified to the left of the colons, and descriptions to the right.
+# These descriptions can be viewed by typing "pytest --markers"
+markers = [
+    "immediate: For tests that are almost immediate, i.e. run < 10 sec        Group: test_length (default)",
+    "short:     For tests that are relatively short, i.e. run < 60 sec        Group: test_length",
+    "long:      For tests that run over a long time, i.e. run > 1 min         Group: test_length",
+    "all:       Automatically applied to all tests                            Group: all_tests (default)",
+]
+
+[tool.pytest.marker_groups]
+# These are the test groups that all tests must be a part of, so if one test is not marked, the default mark will be applied.
+# Here the name of the marker group is the variable assigned, and the markers in it are the members of the group
+# The marker at index 0 is the default
+# the logic for this is in conftest.py
+test_length = ["immediate", "short","long"]
+all_tests = ["all"]
 
 
 # Config File for Poetry:
@@ -48,17 +91,6 @@ python = "^3.10"
 toml = "^0.10.2"
 serial = "^0.0.97"
 
-#docs group is all that's needed to compile sphinx.
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-Sphinx = "^7.2.6"
-sphinx-nefertiti = "^0.3.2"
-sphinx-book-theme = "^1.1.2"
-sphinx-wagtail-theme = "^6.3.0"
-pydata-sphinx-theme = "^0.15.2"
-
 #dev group for developers updating the code
 [tool.poetry.group.dev]
 optional = true
@@ -70,6 +102,14 @@ sphinx-nefertiti = "^0.3.2"
 sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
+sphinx-design = "^0.6.1"
+
+
+[tool.poetry.group.gh_read_pyproject] #This is used when we want to read pyproject.toml while evaluating workflows.
+optional = true
+
+[tool.poetry.group.gh_read_pyproject.dependencies]
+toml = "^0.10.2"
 
 #gh_tests group for all testing on github.
 [tool.poetry.group.gh_tests]
@@ -77,6 +117,7 @@ optional = true
 
 [tool.poetry.group.gh_tests.dependencies]
 pytest = "^8.2.0"
+toml = "^0.10.2"
 
 #gh_tests group for building documentation on github.
 [tool.poetry.group.gh_docs]
@@ -90,11 +131,15 @@ sphinx-nefertiti = "^0.3.2"
 sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
+sphinx-design = "^0.6.1"
 
-#tests group is group for testing in local contexts
-[tool.poetry.group.tests.dependencies]
+
+[tool.poetry.group.tests.dependencies] #tests group is group for testing in local contexts
 pytest = "^8.2.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+
