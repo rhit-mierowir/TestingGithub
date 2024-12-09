@@ -1,6 +1,20 @@
+"""
+This is an outdated file to specify the fitness functions we want.
+
+Author:
+- Isaac Mierow
+"""
+
 import abc
+from typing import Callable
 
 class FitnessFunction:
+    """
+    This is a function that Is used as an abstract class
+    to link relevant fitness functions.
+
+    This class is not ment to be used directly.
+    """
     
     @classmethod
     @abc.abstractmethod
@@ -38,6 +52,10 @@ class FitnessFunction:
     def evaluate(self,*args,**kwargs):
         pass
 
+class OtherClass:
+    def test():
+        return True
+
 class FitnessFunctionListToInt(FitnessFunction):
     
     @abc.abstractmethod
@@ -48,7 +66,7 @@ class FitnessFunctionListToInt(FitnessFunction):
     def evaluate(self,input:list[int])->float:
         pass
 
-class FooFitnessFunction(FitnessFunctionListToInt):
+class FooFitnessFunction(FitnessFunctionListToInt,OtherClass):
     def verify(cls)->bool:
         return True
         isinstance(my_Selection_method, Selection_Method)
@@ -75,8 +93,9 @@ print(fitness_function.verify(3))
 ## --------------------- Using Decorators --------------------------
 
 # The decorator instantiated
-def verified_by(verify_function:callable):
-    def verifier(func:callable):
+def verified_by(verify_function:Callable):
+    "This is a decorator to attatch a verified function to it."
+    def verifier(func:Callable):
         verified = func
         verified.verify = verify_function
         # We could also potentially put this funtion into a list for testing.

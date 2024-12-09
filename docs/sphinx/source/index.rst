@@ -18,7 +18,36 @@ This is the main Branch.
 
    nonsense/index.rst
    code/index.rst
+   dev/index.rst
+   404.rst
 
+Grid
+----
+
+.. grid:: 1 1 2 2
+   :gutter: 2 3 4 4
+
+   .. grid-item-card:: Link To Code
+      :link: code/old_test_verify
+      :link-type: doc
+      :link-alt: Link to code/old_test_verify
+      
+      jump to old_test_verify
+      
+   .. grid-item:: 
+      This is thing 2
+      
+   .. grid-item:: 
+      This is thing 3
+
+   .. grid-item::
+      This is thing 4   
+
+
+To Do
+-----
+.. todo::
+   Check the implementation of todo.
 
 
 Indices and tables
@@ -27,3 +56,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Todos
+=====
+.. todolist::
+
+.. This is a list of all todos found if todo_include_todos is True.
+

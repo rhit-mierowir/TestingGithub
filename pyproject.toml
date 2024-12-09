@@ -5,11 +5,15 @@ copyright_message = '2024, rhit-mierowir'
 author = 'rhit-mierowir'
 
 theme = "sphinx_nefertiti"
+dev_theme = "sphinx_book_theme"
 #OPTIONS:   'sphinx_book_theme'
 #           'sphinx_wagtail_theme'
 #           'sphinx_nefertiti'      <== Default/Suggested
 #           'pydata_sphinx_theme'
 
+logo = "https://images.unsplash.com/photo-1526392269816-39d8ed656494?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+dev_logo = "https://images.unsplash.com/photo-1631376604263-5d803038b389?q=80&w=1973&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+test_fail_logo = "https://images.unsplash.com/photo-1623018035782-b269248df916?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
 # Config For testing in github workflows
 [tests]
@@ -98,9 +102,10 @@ sphinx-nefertiti = "^0.3.2"
 sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
+sphinx-design = "^0.6.1"
 
-#This is used when we want to read pyproject.toml while evaluating workflows.
-[tool.poetry.group.gh_read_pyproject]
+
+[tool.poetry.group.gh_read_pyproject] #This is used when we want to read pyproject.toml while evaluating workflows.
 optional = true
 
 [tool.poetry.group.gh_read_pyproject.dependencies]
@@ -126,9 +131,10 @@ sphinx-nefertiti = "^0.3.2"
 sphinx-book-theme = "^1.1.2"
 sphinx-wagtail-theme = "^6.3.0"
 pydata-sphinx-theme = "^0.15.2"
+sphinx-design = "^0.6.1"
 
-#tests group is group for testing in local contexts
-[tool.poetry.group.tests.dependencies]
+
+[tool.poetry.group.tests.dependencies] #tests group is group for testing in local contexts
 pytest = "^8.2.0"
 
 [build-system]
